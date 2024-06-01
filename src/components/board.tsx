@@ -9,7 +9,7 @@ export default function Board({
 }: {
   boardSize: number;
   blockSize: number;
-  handleClick: () => void;
+  handleClick: (i: number) => void;
   boardColours: string[];
 }) {
   const sizeArray = new Array(boardSize ** 2).fill("");

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Board from "./board";
 import ColourList from "./colour-list";
 import SkipColour from "./skip";
+import Score from "./score";
 
 export default function Game() {
   const blockSize = 24;
@@ -35,32 +36,41 @@ export default function Game() {
     return output;
   }
 
+  const [moves, setMoves] = useState(0);
+  const [misclicks, setMisclicks] = useState(0);
   function handleClick(i: number) {
     let newBoardColours = [...boardColours];
     newBoardColours[i] = addHexes(boardColours[i], colourList[0]);
     if (!possibleColours.includes(newBoardColours[i])) {
+      setMisclicks(misclicks + 1);
       return;
     }
     setBoardColours(newBoardColours);
     let newColourList = [colourList[1], colourList[2], randomColour()];
     setColourList(newColourList);
+    setMoves(moves + 1);
   }
 
+  const [skips, setSkips] = useState(0);
   const [skipBackground, setSkipBackground] = useState("ffffff");
 
   function handleSkipClick() {
     setSkipBackground(colourList[0]);
     let newColourList = [colourList[1], colourList[2], randomColour()];
     setColourList(newColourList);
+    setSkips(skips + 1);
   }
 
   return (
     <>
-      <SkipColour
-        size={blockSize}
-        background={skipBackground}
-        handleClick={handleSkipClick}
-      />
+      <div className="flex flex-col">
+        <SkipColour
+          size={blockSize}
+          background={skipBackground}
+          handleClick={handleSkipClick}
+        />
+        <Score moves={moves} misclicks={misclicks} skips={skips} />
+      </div>
       <Board
         boardSize={boardSize}
         blockSize={blockSize}
