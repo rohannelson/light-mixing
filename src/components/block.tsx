@@ -11,7 +11,7 @@ export default function Block({
   return (
     <button
       onClick={handleClick}
-      className={`w-${size} h-${size} bg-[${background}] border border-solid border-black`}
+      className={`w-${size} h-${size} bg-[#${background}] border border-solid border-black`}
     ></button>
   );
 }
