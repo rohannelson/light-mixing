@@ -1,4 +1,3 @@
-import type { BlockProps } from "../lib/types";
 import Block from "./block";
 
 export default function Board({
