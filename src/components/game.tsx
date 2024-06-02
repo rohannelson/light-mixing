@@ -4,9 +4,11 @@ import Board from "./board";
 import ColourList from "./colour-list";
 import SkipColour from "./skip";
 import Score from "./score";
+import Options from "./options";
+import Separator from "./separator";
 
 export default function Game() {
-  const boardSize = 3;
+  const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
   const [boardColours, setBoardColours] = useState(
     new Array(boardSize ** 2).fill("000000")
@@ -72,6 +74,8 @@ export default function Game() {
             handleClick={handleSkipClick}
           />
           <Score moves={moves} misclicks={misclicks} skips={skips} />
+          <Separator />
+          <Options setBoardSize={setBoardSize} />
         </div>
         <Board
           boardSize={boardSize}
