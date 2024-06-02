@@ -1,22 +1,22 @@
 export default function SkipColour({
-  size,
+  //size,
   background,
   handleClick,
 }: {
-  size: number;
+  //size: string;
   background: string;
   handleClick: () => void;
 }) {
   return (
-    <div className="flex flex-col">
-      <button
-        id="skip-button"
-        onClick={handleClick}
-        className={`w-${size} h-${size} bg-[#${background}] border border-solid border-black`}
-      ></button>
+    <div className="flex flex-col w-full">
       <label htmlFor="skip-button" className="w-full text-center">
         SKIP COLOUR
       </label>
+      <button
+        id="skip-button"
+        onClick={handleClick}
+        className={`w-full aspect-square bg-[#${background}] border border-solid border-black`}
+      ></button>
     </div>
   );
 }

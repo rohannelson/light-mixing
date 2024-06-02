@@ -6,8 +6,8 @@ import SkipColour from "./skip";
 import Score from "./score";
 
 export default function Game() {
-  const blockSize = 24;
   const boardSize = 3;
+  const blockSize = `calc(100/${boardSize})%`;
   const [boardColours, setBoardColours] = useState(
     new Array(boardSize ** 2).fill("000000")
   );
@@ -62,22 +62,28 @@ export default function Game() {
   }
 
   return (
-    <>
-      <div className="flex flex-col">
-        <SkipColour
-          size={blockSize}
-          background={skipBackground}
-          handleClick={handleSkipClick}
+    <div className="max-h-screen">
+      <h1 className="text-2xl uppercase">Light Mixing Game</h1>
+      <div className={`grid grid-cols-${boardSize + 2} gap-4`}>
+        <div className="flex flex-col">
+          <SkipColour
+            //size={blockSize}
+            background={skipBackground}
+            handleClick={handleSkipClick}
+          />
+          <Score moves={moves} misclicks={misclicks} skips={skips} />
+        </div>
+        <Board
+          boardSize={boardSize}
+          blockSize={blockSize}
+          boardColours={boardColours}
+          handleClick={handleClick}
         />
-        <Score moves={moves} misclicks={misclicks} skips={skips} />
+        <ColourList
+          boardSize={boardSize} /*blockSize={blockSize}*/
+          colourList={colourList}
+        />
       </div>
-      <Board
-        boardSize={boardSize}
-        blockSize={blockSize}
-        boardColours={boardColours}
-        handleClick={handleClick}
-      />
-      <ColourList boardSize={boardSize} blockSize={blockSize} colourList={colourList} />
-    </>
+    </div>
   );
 }

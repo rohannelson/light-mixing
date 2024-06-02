@@ -3,14 +3,14 @@ export default function Block({
   handleClick,
   background,
 }: {
-  size: number;
+  size: string;
   handleClick: () => void;
   background: string;
 }) {
   return (
     <button
       onClick={handleClick}
-      className={`w-${size} h-${size} bg-[#${background}] border border-solid border-black`}
+      className={`w-${size} bg-[#${background}] border border-solid border-black aspect-square`}
     ></button>
   );
 }

@@ -7,14 +7,16 @@ export default function Board({
   boardColours,
 }: {
   boardSize: number;
-  blockSize: number;
+  blockSize: string;
   handleClick: (i: number) => void;
   boardColours: string[];
 }) {
   const sizeArray = new Array(boardSize ** 2).fill("");
 
   return (
-    <div className={`bg-white grid grid-cols-${boardSize} gap-1 w-fit`}>
+    <div
+      className={`bg-white grid grid-cols-${boardSize} gap-1 w-full h-full col-span-${boardSize}`}
+    >
       {sizeArray.map((v, i) => {
         return (
           <Block
