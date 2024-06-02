@@ -1,9 +1,9 @@
-import type { SetStateAction, Dispatch } from "react";
+import type { ChangeEvent } from "react";
 
 export default function Options({
-  setBoardSize,
+  handleChange,
 }: {
-  setBoardSize: Dispatch<SetStateAction<number>>;
+  handleChange: (e: ChangeEvent) => void;
 }) {
   return (
     <label className="font-semibold">
@@ -13,7 +13,7 @@ export default function Options({
         defaultValue="3"
         className="w-full p-1"
         onChange={(e) => {
-          setBoardSize(parseInt(e.currentTarget.value));
+          handleChange(e);
         }}
       >
         <option value="2">2</option>
@@ -21,8 +21,6 @@ export default function Options({
         <option value="4">4</option>
         <option value="5">5</option>
         <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
       </select>
     </label>
   );

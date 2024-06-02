@@ -1,9 +1,7 @@
 export default function SkipColour({
-  //size,
   background,
   handleClick,
 }: {
-  //size: string;
   background: string;
   handleClick: () => void;
 }) {

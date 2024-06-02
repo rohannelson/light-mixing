@@ -1,5 +1,5 @@
 //Note to self - set 'blockSize' as a css variable rather than a prop
-import { useState } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import Board from "./board";
 import ColourList from "./colour-list";
 import SkipColour from "./skip";
@@ -10,23 +10,26 @@ import Separator from "./separator";
 export default function Game() {
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
-  const [boardColours, setBoardColours] = useState(
-    new Array(boardSize ** 2).fill("000000")
-  );
+  const [boardColours, setBoardColours] = useState([]);
   const colourOptions = ["ff0000", "00ff00", "0000ff"];
   const possibleColours = [...colourOptions, "ffff00", "00ffff", "ff00ff", "ffffff"];
 
-  const listArray = new Array(boardSize).fill("");
+  //This is a bit tangled, you should separate boardColours from coloursList
+  function initBoardState(boardSize) {
+    const listArray = new Array(boardSize).fill("");
+    useEffect(() => {
+      setBoardColours(new Array(boardSize ** 2).fill("000000"));
+    }, [boardSize]);
+    return listArray.map(() => {
+      return randomColour();
+    });
+  }
 
   function randomColour() {
     return colourOptions[Math.floor(Math.random() * colourOptions.length)];
   }
 
-  const [colourList, setColourList] = useState(
-    listArray.map(() => {
-      return randomColour();
-    })
-  );
+  const [colourList, setColourList] = useState(initBoardState(boardSize));
 
   function addHexes(num1: string, num2: string) {
     console.log("num1: ", num1, " num2: ", num2);
@@ -63,19 +66,21 @@ export default function Game() {
     setSkips(skips + 1);
   }
 
+  function handleBoardSizeChange(e: ChangeEvent) {
+    const newBoardSize = parseInt(e.currentTarget.value);
+    setBoardSize(newBoardSize);
+    setColourList(initBoardState(newBoardSize));
+  }
+
   return (
     <div className="max-h-screen">
       <h1 className="text-2xl uppercase">Light Mixing Game</h1>
       <div className={`grid grid-cols-${boardSize + 2} gap-4`}>
         <div className="flex flex-col">
-          <SkipColour
-            //size={blockSize}
-            background={skipBackground}
-            handleClick={handleSkipClick}
-          />
+          <SkipColour background={skipBackground} handleClick={handleSkipClick} />
           <Score moves={moves} misclicks={misclicks} skips={skips} />
           <Separator />
-          <Options setBoardSize={setBoardSize} />
+          <Options handleChange={handleBoardSizeChange} />
         </div>
         <Board
           boardSize={boardSize}
@@ -83,10 +88,7 @@ export default function Game() {
           boardColours={boardColours}
           handleClick={handleClick}
         />
-        <ColourList
-          boardSize={boardSize} /*blockSize={blockSize}*/
-          colourList={colourList}
-        />
+        <ColourList boardSize={boardSize} colourList={colourList} />
       </div>
     </div>
   );
