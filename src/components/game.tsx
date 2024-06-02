@@ -1,4 +1,4 @@
-//Note to self - set 'blockSize' as a css variable rather than a prop
+//Note to self - maybe set 'blockSize' as a css variable rather than a prop?
 import { useState, useEffect, type ChangeEvent } from "react";
 import Board from "./board";
 import ColourList from "./colour-list";
@@ -10,16 +10,20 @@ import Separator from "./separator";
 export default function Game() {
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
-  const [boardColours, setBoardColours] = useState([]);
+  function initListArray(boardSize: number) {
+    return new Array(boardSize).fill("");
+  }
+  let listArray = initListArray(boardSize);
+  const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const colourOptions = ["ff0000", "00ff00", "0000ff"];
   const possibleColours = [...colourOptions, "ffff00", "00ffff", "ff00ff", "ffffff"];
 
   //This is a bit tangled, you should separate boardColours from coloursList
-  function initBoardState(boardSize) {
-    const listArray = new Array(boardSize).fill("");
-    useEffect(() => {
-      setBoardColours(new Array(boardSize ** 2).fill("000000"));
-    }, [boardSize]);
+  function initBoardColours(boardSize: number) {
+    return new Array(boardSize ** 2).fill("000000");
+  }
+
+  function initListColours() {
     return listArray.map(() => {
       return randomColour();
     });
@@ -29,7 +33,7 @@ export default function Game() {
     return colourOptions[Math.floor(Math.random() * colourOptions.length)];
   }
 
-  const [colourList, setColourList] = useState(initBoardState(boardSize));
+  const [colourList, setColourList] = useState(initListColours());
 
   function addHexes(num1: string, num2: string) {
     console.log("num1: ", num1, " num2: ", num2);
@@ -66,10 +70,12 @@ export default function Game() {
     setSkips(skips + 1);
   }
 
-  function handleBoardSizeChange(e: ChangeEvent) {
+  function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
     const newBoardSize = parseInt(e.currentTarget.value);
     setBoardSize(newBoardSize);
-    setColourList(initBoardState(newBoardSize));
+    setBoardColours(initBoardColours(newBoardSize));
+    listArray = initListArray(newBoardSize);
+    setColourList(initListColours());
   }
 
   return (
@@ -88,7 +94,7 @@ export default function Game() {
           boardColours={boardColours}
           handleClick={handleClick}
         />
-        <ColourList boardSize={boardSize} colourList={colourList} />
+        <ColourList colourList={colourList} listArray={listArray} />
       </div>
     </div>
   );

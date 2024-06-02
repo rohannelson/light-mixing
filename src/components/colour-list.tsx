@@ -1,11 +1,10 @@
 export default function ColourList({
-  boardSize,
   colourList,
+  listArray,
 }: {
-  boardSize: number;
   colourList: string[];
+  listArray: string[];
 }) {
-  const listArray = new Array(boardSize).fill("");
   return (
     <div className="flex flex-col gap-1">
       {listArray.map((v, i) => {

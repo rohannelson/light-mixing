@@ -3,7 +3,7 @@ import type { ChangeEvent } from "react";
 export default function Options({
   handleChange,
 }: {
-  handleChange: (e: ChangeEvent) => void;
+  handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }) {
   return (
     <label className="font-semibold">
