@@ -45,6 +45,17 @@ export default function Game() {
     return output;
   }
 
+  function updateColourList(colourList: string[]) {
+    let newColourList = [...colourList];
+    let count = 0;
+    while (count < colourList.length - 1) {
+      newColourList[count] = colourList[count + 1];
+      count++;
+    }
+    newColourList[colourList.length - 1] = randomColour();
+    setColourList(newColourList);
+  }
+
   const [moves, setMoves] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
   function handleClick(i: number) {
@@ -55,8 +66,7 @@ export default function Game() {
       return;
     }
     setBoardColours(newBoardColours);
-    let newColourList = [colourList[1], colourList[2], randomColour()];
-    setColourList(newColourList);
+    updateColourList(colourList);
     setMoves(moves + 1);
   }
 
@@ -65,8 +75,7 @@ export default function Game() {
 
   function handleSkipClick() {
     setSkipBackground(colourList[0]);
-    let newColourList = [colourList[1], colourList[2], randomColour()];
-    setColourList(newColourList);
+    updateColourList(colourList);
     setSkips(skips + 1);
   }
 
@@ -78,15 +87,27 @@ export default function Game() {
     setColourList(initListColours());
   }
 
+  function handleReset() {
+    setBoardColours(initBoardColours(boardSize));
+    setColourList(initListColours());
+  }
+
   return (
     <div className="max-h-screen">
       <h1 className="text-2xl uppercase">Light Mixing Game</h1>
-      <div className={`grid grid-cols-${boardSize + 2} gap-4`}>
+      <div className={`grid grid-cols-${boardSize + 2} gap-4 grid-rows-[min-content]`}>
+        <div className={`col-span-${boardSize + 2} grid grid-cols-${boardSize + 2}`}>
+          <label className="font-semibold">DISCARD BUTTON</label>
+          <label className={`col-span-${boardSize} text-center font-semibold`}>
+            GAME BOARD
+          </label>
+          <label className="text-right font-semibold">NEXT UP</label>
+        </div>
         <div className="flex flex-col">
           <SkipColour background={skipBackground} handleClick={handleSkipClick} />
           <Score moves={moves} misclicks={misclicks} skips={skips} />
-          <Separator />
-          <Options handleChange={handleBoardSizeChange} />
+          <Separator className="mt-1" />
+          <Options handleChange={handleBoardSizeChange} handleReset={handleReset} />
         </div>
         <Board
           boardSize={boardSize}

@@ -15,7 +15,7 @@ export default function Board({
 
   return (
     <div
-      className={`bg-white grid grid-cols-${boardSize} gap-1 w-full h-full col-span-${boardSize}`}
+      className={`bg-white grid grid-cols-${boardSize} gap-1 w-full col-span-${boardSize} grid-rows-[min-content]`}
     >
       {sizeArray.map((v, i) => {
         return (

@@ -2,6 +2,7 @@
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   safelist: [
+    "grid-cols-2",
     "grid-cols-3",
     "grid-cols-4",
     "grid-cols-5",
@@ -13,6 +14,8 @@ export default {
     "col-span-4",
     "col-span-5",
     "col-span-6",
+    "col-span-7",
+    "col-span-8",
     "bg-[#000000]",
     "bg-[#ffffff]",
     "bg-[#ff0000]",

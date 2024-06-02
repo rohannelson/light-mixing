@@ -7,9 +7,6 @@ export default function SkipColour({
 }) {
   return (
     <div className="flex flex-col w-full">
-      <label htmlFor="skip-button" className="w-full text-center">
-        SKIP COLOUR
-      </label>
       <button
         id="skip-button"
         onClick={handleClick}
