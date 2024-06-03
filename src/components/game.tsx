@@ -92,22 +92,18 @@ export default function Game() {
     setColourList(initListColours());
   }
 
+  const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
+
   return (
-    <div className="max-h-screen">
+    <div className="h-screen m-4">
       <h1 className="text-2xl uppercase">Light Mixing Game</h1>
-      <div className={`grid grid-cols-${boardSize + 2} gap-4 grid-rows-[min-content]`}>
-        <div className={`col-span-${boardSize + 2} grid grid-cols-${boardSize + 2}`}>
-          <label className="font-semibold">DISCARD BUTTON</label>
+      <div className={`grid ${gridColumns} gap-1`}>
+        <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
           <label className={`col-span-${boardSize} text-center font-semibold`}>
             GAME BOARD
           </label>
-          <label className="text-right font-semibold">NEXT UP</label>
-        </div>
-        <div className="flex flex-col">
-          <SkipColour background={skipBackground} handleClick={handleSkipClick} />
-          <Score moves={moves} misclicks={misclicks} skips={skips} />
-          <Separator className="mt-1" />
-          <Options handleChange={handleBoardSizeChange} handleReset={handleReset} />
+          <div />
+          <label className="font-semibold">NEXT UP</label>
         </div>
         <Board
           boardSize={boardSize}
@@ -115,7 +111,15 @@ export default function Game() {
           boardColours={boardColours}
           handleClick={handleClick}
         />
+        <div />
         <ColourList colourList={colourList} listArray={listArray} />
+        <SkipColour background={skipBackground} handleClick={handleSkipClick} />
+        <Score moves={moves} misclicks={misclicks} skips={skips} />
+        <Options
+          handleChange={handleBoardSizeChange}
+          handleReset={handleReset}
+          boardSize={boardSize}
+        />
       </div>
     </div>
   );

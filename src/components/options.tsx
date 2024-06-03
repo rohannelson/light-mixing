@@ -1,13 +1,16 @@
 import type { ChangeEvent } from "react";
-import Separator from "./separator";
 
 export default function Options({
   handleChange,
   handleReset,
+  boardSize,
 }: {
   handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleReset: () => void;
+  boardSize: number;
 }) {
+  const gapArray = new Array(boardSize - 2).fill("");
+  console.log(gapArray);
   return (
     <>
       <label className="font-semibold">
@@ -20,16 +23,23 @@ export default function Options({
             handleChange(e);
           }}
         >
-          <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
           <option value="6">6</option>
         </select>
       </label>
-      <Separator className="my-2" />
-      <button type="button" onClick={handleReset} className="border border-slate-400 p-1">
-        Reset Game
+      {gapArray.map((v, i) => (
+        <div key={i} />
+      ))}
+      <button
+        type="button"
+        onClick={handleReset}
+        className="border border-slate-400 w-full"
+      >
+        Reset
+        <br />
+        Game
       </button>
     </>
   );

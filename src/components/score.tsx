@@ -14,11 +14,11 @@ export default function Score({
         <dd>{moves}</dd>
       </div>
       <div className="flex">
-        <dt className="font-semibold">Skips&nbsp;</dt>
+        <dt className="font-semibold">Skips:&nbsp;</dt>
         <dd>{skips}</dd>
       </div>
       <div className="flex">
-        <dt className="font-semibold">Misclicks:&nbsp;</dt>
+        <dt className="font-semibold text-sm">Misclicks:&nbsp;</dt>
         <dd>{misclicks}</dd>
       </div>
     </dl>

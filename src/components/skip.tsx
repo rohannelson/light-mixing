@@ -10,8 +10,10 @@ export default function SkipColour({
       <button
         id="skip-button"
         onClick={handleClick}
-        className={`w-full aspect-square bg-[#${background}] border border-solid border-black`}
-      ></button>
+        className={`w-full aspect-square bg-[#${background}] border border-solid border-black font-semibold`}
+      >
+        DISCARD
+      </button>
     </div>
   );
 }
