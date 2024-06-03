@@ -9,12 +9,13 @@ export default function Options({
   handleReset: () => void;
   boardSize: number;
 }) {
-  const gapArray = new Array(boardSize - 2).fill("");
-  console.log(gapArray);
+  const colSpan = boardSize - 2 > 0 ? boardSize - 2 : 1;
+  console.log(colSpan);
   return (
     <>
-      <label className="font-semibold">
+      <label className={`font-semibold col-span-${colSpan} w-fit`}>
         Board Size
+        <br />
         <select
           id="board-size"
           defaultValue="3"
@@ -29,13 +30,11 @@ export default function Options({
           <option value="6">6</option>
         </select>
       </label>
-      {gapArray.map((v, i) => (
-        <div key={i} />
-      ))}
+      <div />
       <button
         type="button"
         onClick={handleReset}
-        className="border border-slate-400 w-full"
+        className="border border-slate-400 w-full font-semibold"
       >
         Reset
         <br />

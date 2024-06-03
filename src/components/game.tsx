@@ -5,7 +5,6 @@ import ColourList from "./colour-list";
 import SkipColour from "./skip";
 import Score from "./score";
 import Options from "./options";
-import Separator from "./separator";
 
 export default function Game() {
   const [boardSize, setBoardSize] = useState(3);
@@ -95,7 +94,7 @@ export default function Game() {
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
 
   return (
-    <div className="h-screen m-4">
+    <div className="max-w-[500px] m-4">
       <h1 className="text-2xl uppercase">Light Mixing Game</h1>
       <div className={`grid ${gridColumns} gap-1`}>
         <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
@@ -103,7 +102,7 @@ export default function Game() {
             GAME BOARD
           </label>
           <div />
-          <label className="font-semibold">NEXT UP</label>
+          <label className="font-semibold text-right">NEXT UP</label>
         </div>
         <Board
           boardSize={boardSize}
