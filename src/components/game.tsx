@@ -1,10 +1,11 @@
 //Note to self - maybe set 'blockSize' as a css variable rather than a prop?
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import Board from "./board";
 import ColourList from "./colour-list";
 import SkipColour from "./skip";
 import Score from "./score";
 import Options from "./options";
+import type { BoardColour } from "../lib/types";
 
 export default function Game() {
   const [boardSize, setBoardSize] = useState(3);
@@ -15,11 +16,32 @@ export default function Game() {
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const colourOptions = ["ff0000", "00ff00", "0000ff"];
-  const possibleColours = [...colourOptions, "ffff00", "00ffff", "ff00ff", "ffffff"];
+  const possibleSecondaryColours = [
+    ...colourOptions,
+    "ffff00",
+    "00ffff",
+    "ff00ff",
+    "ffffff",
+  ];
+  const possibleTertiaryColours = [
+    ...colourOptions,
+    ...possibleSecondaryColours,
+    "ff7f00",
+    "ff7f7f",
+    "ff007f",
+    "7fff00",
+    "7fff7f",
+    "00ff7f",
+    "7f00ff",
+    "7f7fff",
+    "007fff",
+    "ffff7f",
+    "ff7fff",
+    "7fffff",
+  ];
 
-  //This is a bit tangled, you should separate boardColours from coloursList
   function initBoardColours(boardSize: number) {
-    return new Array(boardSize ** 2).fill("000000");
+    return new Array(boardSize ** 2).fill({ colour: "000000", tertiary: false });
   }
 
   function initListColours() {
@@ -33,15 +55,55 @@ export default function Game() {
   }
 
   const [colourList, setColourList] = useState(initListColours());
+  const [tertiary, setTertiary] = useState<boolean>(true);
 
-  function addHexes(num1: string, num2: string) {
-    console.log("num1: ", num1, " num2: ", num2);
-    let output = (parseInt(num1, 16) + parseInt(num2, 16)).toString(16);
-    while (output.length < 6) {
-      output = "0" + output;
+  function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
+    function splitTertiary(colour: string): string[] {
+      //Split colours into RGB array for tertiary 'addition'
+      const red = colour.substring(0, 2);
+      const green = colour.substring(2, 4);
+      const blue = colour.substring(4, 6);
+      return [red, green, blue];
     }
+    function tertiarySwitch(): BoardColour {
+      //Check and handle if the block is changing to tertiary
+      if (!boardColour.tertiary && boardColour.colour != "ffffff") {
+        let i = listColour.indexOf("ff");
+        if (boardColour.colour.substring(i, i + 2) == "ff") {
+          return {
+            colour: splitTertiary(boardColour.colour)
+              .map((colour) => colour.replace("ff", "7f"))
+              .join(""),
+            tertiary: true,
+          };
+        }
+      }
+      return boardColour;
+    }
+    boardColour = tertiary ? tertiarySwitch() : boardColour;
+    console.log("boardColour: ", boardColour, " listColour: ", listColour);
+    function tertiaryAddition(): string {
+      //handle tertiary 'addition
+      const boardColourArray = splitTertiary(boardColour.colour);
+      //0 = red, 1 = green, 2 = blue
+      const i = splitTertiary(listColour).indexOf("ff");
+      if (boardColourArray[i] == "00") {
+        boardColourArray[i] = "7f";
+      } else if (boardColourArray[i] == "7f") {
+        boardColourArray[i] = "ff";
+      } else {
+        return "msclck";
+      }
+      return boardColourArray.join("");
+    }
+    let output = !boardColour.tertiary
+      ? (parseInt(boardColour.colour, 16) + parseInt(listColour, 16))
+          .toString(16)
+          .padStart(6, "0")
+      : tertiaryAddition();
+
     console.log("output: ", output);
-    return output;
+    return { ...boardColour, colour: output };
   }
 
   function updateColourList(colourList: string[]) {
@@ -60,7 +122,7 @@ export default function Game() {
   function handleClick(i: number) {
     let newBoardColours = [...boardColours];
     newBoardColours[i] = addHexes(boardColours[i], colourList[0]);
-    if (!possibleColours.includes(newBoardColours[i])) {
+    if (!possibleTertiaryColours.includes(newBoardColours[i].colour)) {
       setMisclicks(misclicks + 1);
       return;
     }
@@ -89,6 +151,10 @@ export default function Game() {
   function handleReset() {
     setBoardColours(initBoardColours(boardSize));
     setColourList(initListColours());
+    setMoves(0);
+    setMisclicks(0);
+    setSkips(0);
+    setSkipBackground("ffffff");
   }
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;

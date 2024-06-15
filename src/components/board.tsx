@@ -1,4 +1,5 @@
 import Block from "./block";
+import { type BoardColour } from "../lib/types";
 
 export default function Board({
   boardSize,
@@ -9,7 +10,7 @@ export default function Board({
   boardSize: number;
   blockSize: string;
   handleClick: (i: number) => void;
-  boardColours: string[];
+  boardColours: BoardColour[];
 }) {
   const sizeArray = new Array(boardSize ** 2).fill("");
 
@@ -23,7 +24,7 @@ export default function Board({
             size={blockSize}
             key={i}
             handleClick={() => handleClick(i)}
-            background={boardColours[i]}
+            background={boardColours[i].colour}
           />
         );
       })}
