@@ -13,13 +13,13 @@ export default function Options({
   console.log(colSpan);
   return (
     <>
-      <label className={`font-semibold col-span-${colSpan} w-fit`}>
+      <label className={`font-semibold col-span-${colSpan} w-fit self-end`}>
         Board Size
         <br />
         <select
           id="board-size"
           defaultValue="3"
-          className="w-full p-1"
+          className="w-full p-1 bg-black border-white border"
           onChange={(e) => {
             handleChange(e);
           }}
@@ -34,7 +34,7 @@ export default function Options({
       <button
         type="button"
         onClick={handleReset}
-        className="border border-slate-400 w-full font-semibold"
+        className="border border-white w-full font-semibold"
       >
         Reset
         <br />

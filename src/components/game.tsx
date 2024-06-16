@@ -16,20 +16,14 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   }
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
-  const colourOptions = ["ff0000", "00ff00", "0000ff"];
-  const possibleSecondaryColours = [
-    ...colourOptions,
-    "ffff00",
-    "00ffff",
-    "ff00ff",
-    "ffffff",
-  ];
+  const fullRgb = ["ff0000", "00ff00", "0000ff"];
+  const halfRgb = ["7f0000", "007f00", "00007f"];
+  const colourOptions = tertiary ? halfRgb : fullRgb;
+  const possibleSecondaryColours = [...fullRgb, "ffff00", "00ffff", "ff00ff", "ffffff"];
   const possibleTertiaryColours = [
-    ...colourOptions,
+    ...fullRgb,
     ...possibleSecondaryColours,
-    "7f0000",
-    "007f00",
-    "00007f",
+    ...halfRgb,
     "7f7f00",
     "7f007f",
     "007f7f",
@@ -100,7 +94,7 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
       //handle tertiary 'addition
       const boardColourArray = splitTertiary(boardColour.colour);
       //0 = red, 1 = green, 2 = blue
-      const i = splitTertiary(listColour).indexOf("ff");
+      const i = splitTertiary(listColour).indexOf("7f");
       if (boardColourArray[i] == "00") {
         boardColourArray[i] = "7f";
       } else if (boardColourArray[i] == "7f") {
@@ -146,7 +140,7 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   }
 
   const [skips, setSkips] = useState(0);
-  const [skipBackground, setSkipBackground] = useState("ffffff");
+  const [skipBackground, setSkipBackground] = useState("000000");
 
   function handleSkipClick() {
     setSkipBackground(colourList[0]);
@@ -168,7 +162,7 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
     setMoves(0);
     setMisclicks(0);
     setSkips(0);
-    setSkipBackground("ffffff");
+    setSkipBackground("000000");
   }
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;

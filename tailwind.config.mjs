@@ -52,9 +52,42 @@ export default {
     "grid-cols-[repeat(4,_1fr)_1rem_1fr]",
     "grid-cols-[repeat(5,_1fr)_1rem_1fr]",
     "grid-cols-[repeat(6,_1fr)_1rem_1fr]",
+    "shadow-[#ffffff]",
+    //primary colours
+    "shadow-[#ff0000]",
+    "shadow-[#0000ff]",
+    "shadow-[#00ff00]",
+    //secondary colours
+    "shadow-[#ffff00]",
+    "shadow-[#00ffff]",
+    "shadow-[#ff00ff]",
+    //tertiary colours
+    "shadow-[#7f0000]",
+    "shadow-[#007f00]",
+    "shadow-[#00007f]",
+    "shadow-[#7f7f00]",
+    "shadow-[#7f007f]",
+    "shadow-[#007f7f]",
+    "shadow-[#7f7f7f]",
+    "shadow-[#ff7f00]",
+    "shadow-[#ff7f7f]",
+    "shadow-[#ff007f]",
+    "shadow-[#7fff00]",
+    "shadow-[#7fff7f]",
+    "shadow-[#00ff7f]",
+    "shadow-[#7f00ff]",
+    "shadow-[#7f7fff]",
+    "shadow-[#007fff]",
+    "shadow-[#ffff7f]",
+    "shadow-[#ff7fff]",
+    "shadow-[#7fffff]",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        glow: "0px 0px 10px 1px",
+      },
+    },
   },
   plugins: [],
 };

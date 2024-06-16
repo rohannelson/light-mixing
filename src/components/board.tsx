@@ -15,9 +15,7 @@ export default function Board({
   const sizeArray = new Array(boardSize ** 2).fill("");
 
   return (
-    <div
-      className={`bg-white grid grid-cols-${boardSize} gap-1 w-full col-span-${boardSize}`}
-    >
+    <div className={`grid grid-cols-${boardSize} gap-1 w-full col-span-${boardSize}`}>
       {sizeArray.map((v, i) => {
         return (
           <Block

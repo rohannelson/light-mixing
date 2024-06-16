@@ -10,7 +10,7 @@ export default function SkipColour({
       <button
         id="skip-button"
         onClick={handleClick}
-        className={`w-full aspect-square bg-[#${background}] border border-solid border-black font-semibold`}
+        className={`w-full aspect-square bg-[#${background}] border border-solid border-white font-semibold`}
       >
         DISCARD
       </button>

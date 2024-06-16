@@ -17,7 +17,7 @@ export default function ColourList({
 function PreviewBlock({ background }: { background: string }) {
   return (
     <div
-      className={`w-full h-full bg-[#${background}] border border-solid border-black aspect-square`}
+      className={`w-full h-full bg-[#${background}] border border-solid border-black aspect-square shadow-glow shadow-[#${background}]`}
     ></div>
   );
 }
