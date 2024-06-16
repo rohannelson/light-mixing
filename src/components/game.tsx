@@ -7,7 +7,8 @@ import Score from "./score";
 import Options from "./options";
 import type { BoardColour } from "../lib/types";
 
-export default function Game() {
+export default function Game({ tertiary }: { tertiary: boolean }) {
+  console.log(tertiary);
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
   function initListArray(boardSize: number) {
@@ -26,6 +27,13 @@ export default function Game() {
   const possibleTertiaryColours = [
     ...colourOptions,
     ...possibleSecondaryColours,
+    "7f0000",
+    "007f00",
+    "00007f",
+    "7f7f00",
+    "7f007f",
+    "007f7f",
+    "7f7f7f",
     "ff7f00",
     "ff7f7f",
     "ff007f",
@@ -41,7 +49,7 @@ export default function Game() {
   ];
 
   function initBoardColours(boardSize: number) {
-    return new Array(boardSize ** 2).fill({ colour: "000000", tertiary: false });
+    return new Array(boardSize ** 2).fill({ colour: "000000", tertiary: tertiary });
   }
 
   function initListColours() {
@@ -55,7 +63,6 @@ export default function Game() {
   }
 
   const [colourList, setColourList] = useState(initListColours());
-  const [tertiary, setTertiary] = useState<boolean>(true);
 
   function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
     function splitTertiary(colour: string): string[] {
@@ -80,8 +87,15 @@ export default function Game() {
       }
       return boardColour;
     }
+    console.log("tertiary before switch", tertiary);
     boardColour = tertiary ? tertiarySwitch() : boardColour;
-    console.log("boardColour: ", boardColour, " listColour: ", listColour);
+    console.log(
+      "After switch - ",
+      "boardColour: ",
+      boardColour,
+      " listColour: ",
+      listColour
+    );
     function tertiaryAddition(): string {
       //handle tertiary 'addition
       const boardColourArray = splitTertiary(boardColour.colour);
@@ -161,14 +175,19 @@ export default function Game() {
 
   return (
     <div className="max-w-[500px] m-4">
-      <h1 className="text-2xl uppercase">Light Mixing Game</h1>
+      <div className="flex flex-wrap gap-x-2">
+        <h1 className="text-2xl uppercase font-bold">Light Mixing Game</h1>
+        <a href="/" className="underline ml-auto">
+          back
+        </a>
+      </div>
       <div className={`grid ${gridColumns} gap-1`}>
         <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
           <label className={`col-span-${boardSize} text-center font-semibold`}>
             GAME BOARD
           </label>
           <div />
-          <label className="font-semibold text-right">NEXT UP</label>
+          <label className="font-semibold text-right">NEXT</label>
         </div>
         <Board
           boardSize={boardSize}

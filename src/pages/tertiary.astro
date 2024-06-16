@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Game from '../components/game';
+---
+
+<Layout title="Light Mixing">
+	<main>
+		<div class="flex">
+			<div class="flex mx-auto">
+				<Game client:only tertiary={true}/>
+			</div>
+		</div>
+	</main>
+</Layout>

@@ -26,6 +26,13 @@ export default {
     "bg-[#00ffff]",
     "bg-[#ff00ff]",
     //tertiary colours
+    "bg-[#7f0000]",
+    "bg-[#007f00]",
+    "bg-[#00007f]",
+    "bg-[#7f7f00]",
+    "bg-[#7f007f]",
+    "bg-[#007f7f]",
+    "bg-[#7f7f7f]",
     "bg-[#ff7f00]",
     "bg-[#ff7f7f]",
     "bg-[#ff007f]",
