@@ -6,9 +6,9 @@ import SkipColour from "./skip";
 import Score from "./score";
 import Options from "./options";
 import type { BoardColour } from "../lib/types";
+import { shuffle } from "../lib/utils";
 
 export default function Game({ tertiary }: { tertiary: boolean }) {
-  console.log(tertiary);
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
   function initListArray(boardSize: number) {
@@ -45,18 +45,17 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   function initBoardColours(boardSize: number) {
     return new Array(boardSize ** 2).fill({ colour: "000000", tertiary: tertiary });
   }
-
-  function initListColours() {
-    return listArray.map(() => {
-      return randomColour();
-    });
+  
+  function initColoursArray(): string[] {
+    const rgbOptions = tertiary ? halfRgb : fullRgb
+    const colourAmount = tertiary ? (boardSize ** 2) * 2 : boardSize ** 2
+    const coloursArray = rgbOptions.map((rgbOption) => {
+      return Array(colourAmount).fill(rgbOption)
+    }).flat()
+    return shuffle(coloursArray)
   }
 
-  function randomColour() {
-    return colourOptions[Math.floor(Math.random() * colourOptions.length)];
-  }
-
-  const [colourList, setColourList] = useState(initListColours());
+  const [coloursArray, setColoursArray] = useState(initColoursArray());
 
   function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
     function splitTertiary(colour: string): string[] {
@@ -114,28 +113,18 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
     return { ...boardColour, colour: output };
   }
 
-  function updateColourList(colourList: string[]) {
-    let newColourList = [...colourList];
-    let count = 0;
-    while (count < colourList.length - 1) {
-      newColourList[count] = colourList[count + 1];
-      count++;
-    }
-    newColourList[colourList.length - 1] = randomColour();
-    setColourList(newColourList);
-  }
 
   const [moves, setMoves] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
   function handleClick(i: number) {
     let newBoardColours = [...boardColours];
-    newBoardColours[i] = addHexes(boardColours[i], colourList[0]);
+    newBoardColours[i] = addHexes(boardColours[i], coloursArray[0]);
     if (!possibleTertiaryColours.includes(newBoardColours[i].colour)) {
       setMisclicks(misclicks + 1);
       return;
     }
     setBoardColours(newBoardColours);
-    updateColourList(colourList);
+    setColoursArray(coloursArray.slice(1));
     setMoves(moves + 1);
   }
 
@@ -143,8 +132,8 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   const [skipBackground, setSkipBackground] = useState("000000");
 
   function handleSkipClick() {
-    setSkipBackground(colourList[0]);
-    updateColourList(colourList);
+    setSkipBackground(coloursArray[0]);
+    setColoursArray(coloursArray.slice(1))
     setSkips(skips + 1);
   }
 
@@ -153,12 +142,12 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
     setBoardSize(newBoardSize);
     setBoardColours(initBoardColours(newBoardSize));
     listArray = initListArray(newBoardSize);
-    setColourList(initListColours());
+    setColoursArray(initColoursArray());
   }
 
   function handleReset() {
     setBoardColours(initBoardColours(boardSize));
-    setColourList(initListColours());
+    setColoursArray(initColoursArray());
     setMoves(0);
     setMisclicks(0);
     setSkips(0);
@@ -190,7 +179,7 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
           handleClick={handleClick}
         />
         <div />
-        <ColourList colourList={colourList} listArray={listArray} />
+        <ColourList colourList={coloursArray.slice(0,boardSize)} listArray={listArray} />
         <SkipColour background={skipBackground} handleClick={handleSkipClick} />
         <Score moves={moves} misclicks={misclicks} skips={skips} />
         <Options
