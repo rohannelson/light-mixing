@@ -4,9 +4,7 @@ I made this because I wanted to learn about mixing light (as opposed to mixing p
 
 ## ToDo
 
-- [] Make it so there are the right number of colours available and they are randomly distributed.
-
-- [] Make it drag and drop instead of click.
+- [] Make it so drag and drop works on mobile...
 
 - [] Change from arbitrary assignment for tertiary 'addition' to proper maths.
 
@@ -15,6 +13,10 @@ I made this because I wanted to learn about mixing light (as opposed to mixing p
 - [] Make high scores in local storage?
 
 - [] Add a bit more white space.
+
+- [x] Make it so there are the right number of colours available and they are randomly distributed.
+
+- [x] Make it drag and drop instead of click.
 
 - [x] Change from squares to circles and add 'glow'
 

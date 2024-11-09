@@ -2,11 +2,11 @@
 import { useState, type ChangeEvent } from "react";
 import Board from "./board";
 import ColourList from "./colour-list";
-import SkipColour from "./skip";
 import Score from "./score";
 import Options from "./options";
 import type { BoardColour } from "../lib/types";
 import { shuffle } from "../lib/utils";
+import "drag-drop-touch";
 
 export default function Game({ tertiary }: { tertiary: boolean }) {
   const [boardSize, setBoardSize] = useState(3);
