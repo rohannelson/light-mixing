@@ -126,18 +126,29 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
 
   const [moves, setMoves] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
+
   function handleClick(i: number) {
+    handleTurn(i, 0);
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLButtonElement>, i: number) {
+    const li = Number(e.dataTransfer.getData("text/plain"));
+    handleTurn(i, li);
+  }
+  function handleTurn(boardIndex: number, listIndex: number) {
     let newBoardColours = [...boardColours];
-    newBoardColours[i] = addHexes(boardColours[i], coloursArray[0]);
-    if (!possibleTertiaryColours.includes(newBoardColours[i].colour)) {
+    newBoardColours[boardIndex] = addHexes(
+      boardColours[boardIndex],
+      coloursArray[listIndex]
+    );
+    if (!possibleTertiaryColours.includes(newBoardColours[boardIndex].colour)) {
       setMisclicks(misclicks + 1);
       return;
     }
     setBoardColours(newBoardColours);
-    setColoursArray(coloursArray.slice(1));
+    setColoursArray(coloursArray.toSpliced(listIndex, 1));
     setMoves(moves + 1);
   }
-
   // const [skips, setSkips] = useState(0);
   // const [skipBackground, setSkipBackground] = useState("000000");
   // function handleSkipClick() {
@@ -186,6 +197,7 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
           blockSize={blockSize}
           boardColours={boardColours}
           handleClick={handleClick}
+          handleDrop={handleDrop}
         />
         <div />
         <ColourList
