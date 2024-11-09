@@ -3,11 +3,13 @@ export default function Block({
   handleClick,
   handleDrop,
   background,
+  sandbox,
 }: {
   size: string;
   handleClick: () => void;
   handleDrop: (e: React.DragEvent<HTMLButtonElement>) => void;
   background: string;
+  sandbox: boolean;
 }) {
   let shadow = background == "000000" ? "shadow-[#ffffff]" : "";
   return (
@@ -18,7 +20,9 @@ export default function Block({
         handleDrop(e);
       }}
       onDragOver={(e) => e.preventDefault()}
-      className={`w-${size} bg-[#${background}] aspect-square rounded-full shadow-glow shadow-[#${background}] ${shadow}`}
+      className={`w-${size} bg-[#${background}] aspect-square ${
+        sandbox ? "" : "rounded-full"
+      } shadow-glow shadow-[#${background}] ${shadow}`}
     ></button>
   );
 }

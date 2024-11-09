@@ -8,7 +8,13 @@ import type { BoardColour } from "../lib/types";
 import { shuffle } from "../lib/utils";
 import "drag-drop-touch";
 
-export default function Game({ tertiary }: { tertiary: boolean }) {
+export default function Game({
+  tertiary = false,
+  sandbox = false,
+}: {
+  tertiary?: boolean;
+  sandbox?: boolean;
+}) {
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
   function initListArray(boardSize: number) {
@@ -56,6 +62,10 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   }
 
   function initColoursArray(boardSize: number): string[] {
+    if (sandbox) {
+      if (tertiary) return [...halfRgb, ...halfRgb];
+      return [...fullRgb, ...fullRgb];
+    }
     const rgbOptions = tertiary ? halfRgb : fullRgb;
     const colourAmount = tertiary ? boardSize ** 2 * 2 : boardSize ** 2;
     const coloursArray = rgbOptions
@@ -127,15 +137,23 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
   const [moves, setMoves] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
 
+  const [colourHeldIndex, setColourHeldIndex] = useState<undefined | number>(
+    undefined
+  );
   function handleClick(i: number) {
-    handleTurn(i, 0);
+    console.log("board clicked, colourHeldIndex: ", colourHeldIndex);
+    handleTurn(i, colourHeldIndex);
   }
 
   function handleDrop(e: React.DragEvent<HTMLButtonElement>, i: number) {
     const li = Number(e.dataTransfer.getData("text/plain"));
     handleTurn(i, li);
   }
-  function handleTurn(boardIndex: number, listIndex: number) {
+
+  function handleTurn(boardIndex: number, listIndex: number | undefined) {
+    if (listIndex === undefined) {
+      return;
+    }
     let newBoardColours = [...boardColours];
     newBoardColours[boardIndex] = addHexes(
       boardColours[boardIndex],
@@ -146,8 +164,9 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
       return;
     }
     setBoardColours(newBoardColours);
-    setColoursArray(coloursArray.toSpliced(listIndex, 1));
+    !sandbox && setColoursArray(coloursArray.toSpliced(listIndex, 1));
     setMoves(moves + 1);
+    !sandbox && setColourHeldIndex(undefined);
   }
   // const [skips, setSkips] = useState(0);
   // const [skipBackground, setSkipBackground] = useState("000000");
@@ -198,11 +217,14 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
           boardColours={boardColours}
           handleClick={handleClick}
           handleDrop={handleDrop}
+          sandbox={sandbox}
         />
         <div />
         <ColourList
           colourList={coloursArray.slice(0, boardSize)}
           listArray={listArray}
+          colourHeldIndex={colourHeldIndex}
+          setColourHeldIndex={setColourHeldIndex}
         />
         {/* <SkipColour background={skipBackground} handleClick={handleSkipClick} /> */}
         <Score moves={moves} misclicks={misclicks} />
