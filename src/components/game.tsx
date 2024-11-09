@@ -138,14 +138,13 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
     setMoves(moves + 1);
   }
 
-  const [skips, setSkips] = useState(0);
-  const [skipBackground, setSkipBackground] = useState("000000");
-
-  function handleSkipClick() {
-    setSkipBackground(coloursArray[0]);
-    setColoursArray(coloursArray.slice(1));
-    setSkips(skips + 1);
-  }
+  // const [skips, setSkips] = useState(0);
+  // const [skipBackground, setSkipBackground] = useState("000000");
+  // function handleSkipClick() {
+  //   setSkipBackground(coloursArray[0]);
+  //   setColoursArray(coloursArray.slice(1));
+  //   setSkips(skips + 1);
+  // }
 
   function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
     const newBoardSize = parseInt(e.currentTarget.value);
@@ -160,8 +159,8 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
     setColoursArray(initColoursArray(boardSize));
     setMoves(0);
     setMisclicks(0);
-    setSkips(0);
-    setSkipBackground("000000");
+    // setSkips(0);
+    // setSkipBackground("000000");
   }
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
@@ -193,8 +192,9 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
           colourList={coloursArray.slice(0, boardSize)}
           listArray={listArray}
         />
-        <SkipColour background={skipBackground} handleClick={handleSkipClick} />
-        <Score moves={moves} misclicks={misclicks} skips={skips} />
+        {/* <SkipColour background={skipBackground} handleClick={handleSkipClick} /> */}
+        <Score moves={moves} misclicks={misclicks} />
+        <div />
         <Options
           handleChange={handleBoardSizeChange}
           handleReset={handleReset}

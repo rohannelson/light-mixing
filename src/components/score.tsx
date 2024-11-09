@@ -1,11 +1,11 @@
 export default function Score({
   moves,
   misclicks,
-  skips,
-}: {
+}: // skips,
+{
   moves: number;
   misclicks: number;
-  skips: number;
+  // skips: number;
 }) {
   return (
     <dl className="flex flex-col mt-1">
@@ -13,10 +13,10 @@ export default function Score({
         <dt className="font-semibold">Moves:&nbsp;</dt>
         <dd>{moves}</dd>
       </div>
-      <div className="flex">
+      {/* <div className="flex">
         <dt className="font-semibold">Skips:&nbsp;</dt>
         <dd>{skips}</dd>
-      </div>
+      </div> */}
       <div className="flex">
         <dt className="font-semibold text-sm">Misclicks:&nbsp;</dt>
         <dd>{misclicks}</dd>
