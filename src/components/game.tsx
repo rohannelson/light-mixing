@@ -206,7 +206,6 @@ export default function Game({ tertiary }: { tertiary: boolean }) {
         />
         {/* <SkipColour background={skipBackground} handleClick={handleSkipClick} /> */}
         <Score moves={moves} misclicks={misclicks} />
-        <div />
         <Options
           handleChange={handleBoardSizeChange}
           handleReset={handleReset}

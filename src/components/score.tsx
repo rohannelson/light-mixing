@@ -8,7 +8,7 @@ export default function Score({
   // skips: number;
 }) {
   return (
-    <dl className="flex flex-col mt-1">
+    <dl className="flex flex-col mt-1 col-span-2">
       <div className="flex">
         <dt className="font-semibold">Moves:&nbsp;</dt>
         <dd>{moves}</dd>
