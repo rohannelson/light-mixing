@@ -5,8 +5,9 @@ import ColourList from "./colour-list";
 import Score from "./score";
 import Options from "./options";
 import type { BoardColour } from "../lib/types";
-import { shuffle } from "../lib/utils";
 import "drag-drop-touch";
+import { POSSIBLE_TERTIARY_COLOURS } from "./consts";
+import initBoard from "./initBoard";
 
 export default function Game({
   tertiary = false,
@@ -17,65 +18,12 @@ export default function Game({
 }) {
   const [boardSize, setBoardSize] = useState(3);
   const blockSize = `calc(100/${boardSize})%`;
-  function initListArray(boardSize: number) {
-    return new Array(boardSize).fill("");
-  }
+  const { initListArray, initBoardColours, initColoursArray } = initBoard({
+    tertiary,
+    sandbox,
+  });
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
-  const fullRgb = ["ff0000", "00ff00", "0000ff"];
-  const halfRgb = ["7f0000", "007f00", "00007f"];
-  const colourOptions = tertiary ? halfRgb : fullRgb;
-  const possibleSecondaryColours = [
-    ...fullRgb,
-    "ffff00",
-    "00ffff",
-    "ff00ff",
-    "ffffff",
-  ];
-  const possibleTertiaryColours = [
-    ...fullRgb,
-    ...possibleSecondaryColours,
-    ...halfRgb,
-    "7f7f00",
-    "7f007f",
-    "007f7f",
-    "7f7f7f",
-    "ff7f00",
-    "ff7f7f",
-    "ff007f",
-    "7fff00",
-    "7fff7f",
-    "00ff7f",
-    "7f00ff",
-    "7f7fff",
-    "007fff",
-    "ffff7f",
-    "ff7fff",
-    "7fffff",
-  ];
-
-  function initBoardColours(boardSize: number) {
-    return new Array(boardSize ** 2).fill({
-      colour: "000000",
-      tertiary: tertiary,
-    });
-  }
-
-  function initColoursArray(boardSize: number): string[] {
-    if (sandbox) {
-      if (tertiary) return [...halfRgb, ...halfRgb];
-      return [...fullRgb, ...fullRgb];
-    }
-    const rgbOptions = tertiary ? halfRgb : fullRgb;
-    const colourAmount = tertiary ? boardSize ** 2 * 2 : boardSize ** 2;
-    const coloursArray = rgbOptions
-      .map((rgbOption) => {
-        return Array(colourAmount).fill(rgbOption);
-      })
-      .flat();
-    return shuffle(coloursArray);
-  }
-
   const [coloursArray, setColoursArray] = useState(initColoursArray(boardSize));
 
   function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
@@ -159,7 +107,9 @@ export default function Game({
       boardColours[boardIndex],
       coloursArray[listIndex]
     );
-    if (!possibleTertiaryColours.includes(newBoardColours[boardIndex].colour)) {
+    if (
+      !POSSIBLE_TERTIARY_COLOURS.includes(newBoardColours[boardIndex].colour)
+    ) {
       setMisclicks(misclicks + 1);
       return;
     }
