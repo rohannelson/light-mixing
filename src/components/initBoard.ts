@@ -12,15 +12,12 @@ export default function initBoard({
     return new Array(boardSize).fill("");
   }
 
-  function initBoardColours(boardSize: number) {
-    return new Array(boardSize ** 2).fill({
-      colour: "000000",
-      tertiary: tertiary,
-    });
+  function initBoardColours(boardSize: number): number[] {
+    return new Array(boardSize ** 2).fill(0x000000);
   }
 
   //'ColoursArray' is an array of colours that the player can place on the game board.
-  function initColoursArray(boardSize: number): string[] {
+  function initColoursArray(boardSize: number): number[] {
     if (sandbox) {
       if (tertiary) return [...HALF_RGB, ...FULL_RGB];
       return [...FULL_RGB, ...FULL_RGB];

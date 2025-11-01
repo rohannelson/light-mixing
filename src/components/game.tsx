@@ -4,7 +4,6 @@ import Board from "./board";
 import ColourList from "./colour-list";
 import Score from "./score";
 import Options from "./options";
-import type { BoardColour } from "../lib/types";
 import "drag-drop-touch";
 import { POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
@@ -26,41 +25,25 @@ export default function Game({
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [coloursArray, setColoursArray] = useState(initColoursArray(boardSize));
 
-  function splitRGB(colour: string): string[] {
-    //Split colours into RGB array for tertiary 'addition'
-    const red = colour.substring(0, 2);
-    const green = colour.substring(2, 4);
-    const blue = colour.substring(4, 6);
-    return [red, green, blue];
+  function splitRGB(colour: number): { r: number; g: number; b: number } {
+    //Split colours into RGB array
+    const r = (colour >> 16) & 0xff; // top 8 bits
+    const g = (colour >> 8) & 0xff; // middle 8 bits
+    const b = colour & 0xff;
+    return { r, g, b };
   }
 
-  function tertiaryAddition(
-    boardColour: BoardColour,
-    listColour: string
-  ): string {
-    //handle tertiary 'addition'
-    const boardColourArray = splitRGB(boardColour.colour);
-    //0 = red, 1 = green, 2 = blue
-    const i = splitRGB(listColour).indexOf("80");
-    if (boardColourArray[i] == "00") {
-      boardColourArray[i] = "80";
-    } else if (boardColourArray[i] == "80") {
-      boardColourArray[i] = "ff";
-    } else {
-      return "msclck";
-    }
-    return boardColourArray.join("");
+  function checkMax(int: number) {
+    return int === 0x100 ? 0xff : int;
   }
-
-  function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
-    let output = boardColour.tertiary
-      ? tertiaryAddition(boardColour, listColour)
-      : (parseInt(boardColour.colour, 16) + parseInt(listColour, 16))
-          .toString(16)
-          .padStart(6, "0");
-
-    console.log("output: ", output);
-    return { ...boardColour, colour: output };
+  function addHexes(boardColour: number, listColour: number): number {
+    const { r: boardR, g: boardG, b: boardB } = splitRGB(boardColour);
+    const { r: listR, g: listG, b: listB } = splitRGB(listColour);
+    const r = checkMax(boardR + listR);
+    const g = checkMax(boardG + listG);
+    const b = checkMax(boardB + listB);
+    const colour = (r << 16) | (g << 8) | b;
+    return colour;
   }
 
   const [moves, setMoves] = useState(0);
@@ -88,9 +71,7 @@ export default function Game({
       boardColours[boardIndex],
       coloursArray[listIndex]
     );
-    if (
-      !POSSIBLE_TERTIARY_COLOURS.includes(newBoardColours[boardIndex].colour)
-    ) {
+    if (!POSSIBLE_TERTIARY_COLOURS.includes(newBoardColours[boardIndex])) {
       setMisclicks(misclicks + 1);
       return;
     }

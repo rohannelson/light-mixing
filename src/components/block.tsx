@@ -1,3 +1,5 @@
+import { toHexStr } from "../lib/utils";
+
 export default function Block({
   size,
   handleClick,
@@ -8,10 +10,10 @@ export default function Block({
   size: string;
   handleClick: () => void;
   handleDrop: (e: React.DragEvent<HTMLButtonElement>) => void;
-  background: string;
+  background: number;
   sandbox: boolean;
 }) {
-  let shadow = background == "000000" ? "shadow-[#ffffff]" : "";
+  let shadow = background == 0x000000 ? "shadow-[#ffffff]" : "";
   return (
     <button
       onClick={handleClick}
@@ -20,9 +22,9 @@ export default function Block({
         handleDrop(e);
       }}
       onDragOver={(e) => e.preventDefault()}
-      className={`w-${size} bg-[#${background}] aspect-square ${
+      className={`w-${size} bg-[${toHexStr(background)}] aspect-square ${
         sandbox ? "" : "rounded-full"
-      } shadow-glow shadow-[#${background}] ${shadow}`}
+      } shadow-glow shadow-[${toHexStr(background)}] ${shadow}`}
     ></button>
   );
 }

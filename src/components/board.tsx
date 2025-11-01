@@ -1,5 +1,4 @@
 import Block from "./block";
-import { type BoardColour } from "../lib/types";
 
 export default function Board({
   boardSize,
@@ -13,7 +12,7 @@ export default function Board({
   blockSize: string;
   handleClick: (i: number) => void;
   handleDrop: (e: React.DragEvent<HTMLButtonElement>, i: number) => void;
-  boardColours: BoardColour[];
+  boardColours: number[];
   sandbox: boolean;
 }) {
   const sizeArray = new Array(boardSize ** 2).fill("");
@@ -29,7 +28,7 @@ export default function Board({
             key={i}
             handleClick={() => handleClick(i)}
             handleDrop={(e) => handleDrop(e, i)}
-            background={boardColours[i].colour}
+            background={boardColours[i]}
             sandbox={sandbox}
           />
         );

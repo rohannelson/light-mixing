@@ -1,30 +1,33 @@
-export const FULL_RGB = ["ff0000", "00ff00", "0000ff"];
-export const HALF_RGB = ["800000", "008000", "000080"];
+export const FULL_RGB = [0xff0000, 0x00ff00, 0x0000ff];
+
+export const HALF_RGB = [0x800000, 0x008000, 0x000080];
+
 export const POSSIBLE_SECONDARY_COLOURS = [
   ...FULL_RGB,
-  "ffff00",
-  "00ffff",
-  "ff00ff",
-  "ffffff",
+  0xffff00,
+  0x00ffff,
+  0xff00ff,
+  0xffffff,
 ];
+
 export const POSSIBLE_TERTIARY_COLOURS = [
   ...FULL_RGB,
   ...POSSIBLE_SECONDARY_COLOURS,
   ...HALF_RGB,
-  "808000",
-  "800080",
-  "008080",
-  "808080",
-  "ff8000",
-  "ff8080",
-  "ff0080",
-  "80ff00",
-  "80ff80",
-  "00ff80",
-  "8000ff",
-  "8080ff",
-  "0080ff",
-  "ffff80",
-  "ff80ff",
-  "80ffff",
+  0x808000,
+  0x800080,
+  0x008080,
+  0x808080,
+  0xff8000,
+  0xff8080,
+  0xff0080,
+  0x80ff00,
+  0x80ff80,
+  0x00ff80,
+  0x8000ff,
+  0x8080ff,
+  0x0080ff,
+  0xffff80,
+  0xff80ff,
+  0x80ffff,
 ];

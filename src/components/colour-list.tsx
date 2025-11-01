@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
+import { toHexStr } from "../lib/utils";
 
 export default function ColourList({
   colourList,
@@ -6,7 +7,7 @@ export default function ColourList({
   setColourHeldIndex,
   colourHeldIndex,
 }: {
-  colourList: string[];
+  colourList: number[];
   listArray: string[];
   setColourHeldIndex: Dispatch<SetStateAction<undefined | number>>;
   colourHeldIndex: number | undefined;
@@ -16,7 +17,7 @@ export default function ColourList({
       {listArray.map((v, i) => {
         return (
           <PreviewBlock
-            background={colourList[i]}
+            background={colourList?.[i] ?? 0}
             key={i}
             i={i}
             setColourHeldIndex={setColourHeldIndex}
@@ -34,16 +35,18 @@ function PreviewBlock({
   setColourHeldIndex,
   colourHeldIndex,
 }: {
-  background: string;
+  background: number;
   i: number;
   setColourHeldIndex: Dispatch<SetStateAction<undefined | number>>;
   colourHeldIndex: number | undefined;
 }) {
   return (
     <div
-      className={`w-full h-full bg-[#${background}] border border-solid border-black aspect-square shadow-glow shadow-[#${background}] ${
-        colourHeldIndex === i ? "scale-110" : ""
-      }`}
+      className={`w-full h-full bg-[${toHexStr(
+        background
+      )}] border border-solid border-black aspect-square shadow-glow shadow-[#${toHexStr(
+        background
+      )}] ${colourHeldIndex === i ? "scale-110" : ""}`}
       onClick={(e) => {
         e.preventDefault();
         setColourHeldIndex(i);
