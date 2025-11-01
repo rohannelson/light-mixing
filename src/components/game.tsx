@@ -26,57 +26,38 @@ export default function Game({
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [coloursArray, setColoursArray] = useState(initColoursArray(boardSize));
 
+  function splitRGB(colour: string): string[] {
+    //Split colours into RGB array for tertiary 'addition'
+    const red = colour.substring(0, 2);
+    const green = colour.substring(2, 4);
+    const blue = colour.substring(4, 6);
+    return [red, green, blue];
+  }
+
+  function tertiaryAddition(
+    boardColour: BoardColour,
+    listColour: string
+  ): string {
+    //handle tertiary 'addition'
+    const boardColourArray = splitRGB(boardColour.colour);
+    //0 = red, 1 = green, 2 = blue
+    const i = splitRGB(listColour).indexOf("80");
+    if (boardColourArray[i] == "00") {
+      boardColourArray[i] = "80";
+    } else if (boardColourArray[i] == "80") {
+      boardColourArray[i] = "ff";
+    } else {
+      return "msclck";
+    }
+    return boardColourArray.join("");
+  }
+
   function addHexes(boardColour: BoardColour, listColour: string): BoardColour {
-    function splitTertiary(colour: string): string[] {
-      //Split colours into RGB array for tertiary 'addition'
-      const red = colour.substring(0, 2);
-      const green = colour.substring(2, 4);
-      const blue = colour.substring(4, 6);
-      return [red, green, blue];
-    }
-    function tertiarySwitch(): BoardColour {
-      //Check and handle if the block is changing to tertiary
-      if (!boardColour.tertiary && boardColour.colour != "ffffff") {
-        let i = listColour.indexOf("ff");
-        if (boardColour.colour.substring(i, i + 2) == "ff") {
-          return {
-            colour: splitTertiary(boardColour.colour)
-              .map((colour) => colour.replace("ff", "80"))
-              .join(""),
-            tertiary: true,
-          };
-        }
-      }
-      return boardColour;
-    }
-    console.log("tertiary before switch", tertiary);
-    boardColour = tertiary ? tertiarySwitch() : boardColour;
-    console.log(
-      "After switch - ",
-      "boardColour: ",
-      boardColour,
-      " listColour: ",
-      listColour
-    );
-    function tertiaryAddition(): string {
-      //handle tertiary 'addition'
-      const boardColourArray = splitTertiary(boardColour.colour);
-      //0 = red, 1 = green, 2 = blue
-      const i = splitTertiary(listColour).indexOf("80");
-      if (boardColourArray[i] == "00") {
-        boardColourArray[i] = "80";
-      } else if (boardColourArray[i] == "80") {
-        boardColourArray[i] = "ff";
-      } else {
-        return "msclck";
-      }
-      return boardColourArray.join("");
-    }
-    let output = !boardColour.tertiary
-      ? (parseInt(boardColour.colour, 16) + parseInt(listColour, 16))
+    let output = boardColour.tertiary
+      ? tertiaryAddition(boardColour, listColour)
+      : (parseInt(boardColour.colour, 16) + parseInt(listColour, 16))
           .toString(16)
-          .padStart(6, "0")
-      : tertiaryAddition();
+          .padStart(6, "0");
 
     console.log("output: ", output);
     return { ...boardColour, colour: output };

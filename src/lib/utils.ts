@@ -1,4 +1,4 @@
-export function shuffle(array) {
+export function shuffle(array: string[]) {
   let currentIndex = array.length;
 
   // While there remain elements to shuffle...
@@ -14,4 +14,8 @@ export function shuffle(array) {
     ];
   }
   return array;
+}
+
+export function toHexStr(int: number): string {
+  return "#" + int.toString(16).padStart(6, "0");
 }
