@@ -11,12 +11,17 @@ import initBoard from "./initBoard";
 export default function Game({
   tertiary = false,
   sandbox = false,
+  size = 3,
+  goal = [],
 }: {
   tertiary?: boolean;
   sandbox?: boolean;
+  size?: number;
+  goal: number[];
 }) {
-  const [boardSize, setBoardSize] = useState(3);
+  const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
+  goal = goal.length === 0 ? new Array(boardSize ** 2).fill(0xffffff) : goal;
   const { initListArray, initBoardColours, initColoursArray } = initBoard({
     tertiary,
     sandbox,
@@ -52,7 +57,6 @@ export default function Game({
 
   const [colourHeldIndex, setColourHeldIndex] = useState<number>(0);
   function handleClick(i: number) {
-    console.log("board clicked, colourHeldIndex: ", colourHeldIndex);
     handleTurn(i, colourHeldIndex);
   }
 
@@ -74,6 +78,9 @@ export default function Game({
     setBoardColours(newBoardColours);
     !sandbox && setColoursArray(coloursArray.toSpliced(listIndex, 1));
     setMoves(moves + 1);
+    if (newBoardColours.every((val, i) => val === goal[i])) {
+      console.log("Win!!!");
+    }
   }
 
   function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -130,6 +137,7 @@ export default function Game({
           handleChange={handleBoardSizeChange}
           handleReset={handleReset}
           boardSize={boardSize}
+          sandbox={sandbox}
         />
       </div>
     </div>

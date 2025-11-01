@@ -50,12 +50,10 @@ function PreviewBlock({
       onClick={(e) => {
         e.preventDefault();
         setColourHeldIndex(i);
-        console.log("clicked");
       }}
       draggable={true}
       onDrag={(e) => {
         e.preventDefault();
-        console.log("background: ", background);
       }}
       onDragStart={(e) => {
         e.dataTransfer.setData("text/plain", i.toString());
