@@ -41,7 +41,7 @@ export default function Game({
         if (boardColour.colour.substring(i, i + 2) == "ff") {
           return {
             colour: splitTertiary(boardColour.colour)
-              .map((colour) => colour.replace("ff", "7f"))
+              .map((colour) => colour.replace("ff", "80"))
               .join(""),
             tertiary: true,
           };
@@ -59,13 +59,13 @@ export default function Game({
       listColour
     );
     function tertiaryAddition(): string {
-      //handle tertiary 'addition
+      //handle tertiary 'addition'
       const boardColourArray = splitTertiary(boardColour.colour);
       //0 = red, 1 = green, 2 = blue
-      const i = splitTertiary(listColour).indexOf("7f");
+      const i = splitTertiary(listColour).indexOf("80");
       if (boardColourArray[i] == "00") {
-        boardColourArray[i] = "7f";
-      } else if (boardColourArray[i] == "7f") {
+        boardColourArray[i] = "80";
+      } else if (boardColourArray[i] == "80") {
         boardColourArray[i] = "ff";
       } else {
         return "msclck";
