@@ -36,6 +36,7 @@ export default function Game({
   function checkMax(int: number) {
     return int === 0x100 ? 0xff : int;
   }
+
   function addHexes(boardColour: number, listColour: number): number {
     const { r: boardR, g: boardG, b: boardB } = splitRGB(boardColour);
     const { r: listR, g: listG, b: listB } = splitRGB(listColour);
@@ -49,9 +50,7 @@ export default function Game({
   const [moves, setMoves] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
 
-  const [colourHeldIndex, setColourHeldIndex] = useState<undefined | number>(
-    undefined
-  );
+  const [colourHeldIndex, setColourHeldIndex] = useState<number>(0);
   function handleClick(i: number) {
     console.log("board clicked, colourHeldIndex: ", colourHeldIndex);
     handleTurn(i, colourHeldIndex);
@@ -62,10 +61,7 @@ export default function Game({
     handleTurn(i, li);
   }
 
-  function handleTurn(boardIndex: number, listIndex: number | undefined) {
-    if (listIndex === undefined) {
-      return;
-    }
+  function handleTurn(boardIndex: number, listIndex: number) {
     let newBoardColours = [...boardColours];
     newBoardColours[boardIndex] = addHexes(
       boardColours[boardIndex],
@@ -78,15 +74,7 @@ export default function Game({
     setBoardColours(newBoardColours);
     !sandbox && setColoursArray(coloursArray.toSpliced(listIndex, 1));
     setMoves(moves + 1);
-    !sandbox && setColourHeldIndex(undefined);
   }
-  // const [skips, setSkips] = useState(0);
-  // const [skipBackground, setSkipBackground] = useState("000000");
-  // function handleSkipClick() {
-  //   setSkipBackground(coloursArray[0]);
-  //   setColoursArray(coloursArray.slice(1));
-  //   setSkips(skips + 1);
-  // }
 
   function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
     const newBoardSize = parseInt(e.currentTarget.value);
@@ -101,8 +89,6 @@ export default function Game({
     setColoursArray(initColoursArray(boardSize));
     setMoves(0);
     setMisclicks(0);
-    // setSkips(0);
-    // setSkipBackground("000000");
   }
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;

@@ -9,8 +9,8 @@ export default function ColourList({
 }: {
   colourList: number[];
   listArray: string[];
-  setColourHeldIndex: Dispatch<SetStateAction<undefined | number>>;
-  colourHeldIndex: number | undefined;
+  setColourHeldIndex: Dispatch<SetStateAction<number>>;
+  colourHeldIndex: number;
 }) {
   return (
     <div className="grid grid-cols-subgrid gap-1">
@@ -37,8 +37,8 @@ function PreviewBlock({
 }: {
   background: number;
   i: number;
-  setColourHeldIndex: Dispatch<SetStateAction<undefined | number>>;
-  colourHeldIndex: number | undefined;
+  setColourHeldIndex: Dispatch<SetStateAction<number>>;
+  colourHeldIndex: number;
 }) {
   return (
     <div
