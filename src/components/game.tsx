@@ -17,7 +17,7 @@ export default function Game({
   tertiary?: boolean;
   sandbox?: boolean;
   size?: number;
-  goal: number[];
+  goal?: number[];
 }) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
@@ -29,6 +29,7 @@ export default function Game({
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [coloursArray, setColoursArray] = useState(initColoursArray(boardSize));
+  const [victory, setVictory] = useState(false);
 
   function splitRGB(colour: number): { r: number; g: number; b: number } {
     //Split colours into RGB array
@@ -80,6 +81,7 @@ export default function Game({
     setMoves(moves + 1);
     if (newBoardColours.every((val, i) => val === goal[i])) {
       console.log("Win!!!");
+      setVictory(true);
     }
   }
 
@@ -101,45 +103,65 @@ export default function Game({
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
 
   return (
-    <div className="max-w-[500px] m-4">
-      <div className="flex flex-wrap gap-x-2">
-        <h1 className="text-2xl uppercase font-bold">Light Mixing Game</h1>
-        <a href="/" className="underline ml-auto">
-          back
-        </a>
-      </div>
-      <div className={`grid ${gridColumns} gap-1`}>
-        <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
-          <label className={`col-span-${boardSize} text-center font-semibold`}>
-            GAME BOARD
-          </label>
-          <div />
-          <label className="font-semibold text-right">NEXT</label>
+    <>
+      <div
+        id="victory-screen"
+        className={`bg-white absolute h-screen w-full transition duration-1000 z-10 flex ${
+          victory ? "visbile opacity-100" : "invisible opacity-0"
+        }`}
+      >
+        <div className="flex-col mx-auto content-center">
+          <div className="bg-black p-4 rounded">Boxy box</div>
         </div>
-        <Board
-          boardSize={boardSize}
-          blockSize={blockSize}
-          boardColours={boardColours}
-          handleClick={handleClick}
-          handleDrop={handleDrop}
-          sandbox={sandbox}
-        />
-        <div />
-        <ColourList
-          colourList={coloursArray.slice(0, boardSize)}
-          listArray={listArray}
-          colourHeldIndex={colourHeldIndex}
-          setColourHeldIndex={setColourHeldIndex}
-        />
-        {/* <SkipColour background={skipBackground} handleClick={handleSkipClick} /> */}
-        <Score moves={moves} misclicks={misclicks} />
-        <Options
-          handleChange={handleBoardSizeChange}
-          handleReset={handleReset}
-          boardSize={boardSize}
-          sandbox={sandbox}
-        />
       </div>
-    </div>
+      <div className="flex">
+        <div className="flex mx-auto">
+          <div className="max-w-[500px] m-4">
+            <div className="flex flex-wrap gap-x-2">
+              <h1 className="text-2xl uppercase font-bold">
+                Light Mixing Game
+              </h1>
+              <a href="/" className="underline ml-auto">
+                back
+              </a>
+            </div>
+            <div className={`grid ${gridColumns} gap-1`}>
+              <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
+                <label
+                  className={`col-span-${boardSize} text-center font-semibold`}
+                >
+                  GAME BOARD
+                </label>
+                <div />
+                <label className="font-semibold text-right">NEXT</label>
+              </div>
+              <Board
+                boardSize={boardSize}
+                blockSize={blockSize}
+                boardColours={boardColours}
+                handleClick={handleClick}
+                handleDrop={handleDrop}
+                sandbox={sandbox}
+              />
+              <div />
+              <ColourList
+                colourList={coloursArray.slice(0, boardSize)}
+                listArray={listArray}
+                colourHeldIndex={colourHeldIndex}
+                setColourHeldIndex={setColourHeldIndex}
+              />
+              {/* <SkipColour background={skipBackground} handleClick={handleSkipClick} /> */}
+              <Score moves={moves} misclicks={misclicks} />
+              <Options
+                handleChange={handleBoardSizeChange}
+                handleReset={handleReset}
+                boardSize={boardSize}
+                sandbox={sandbox}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
