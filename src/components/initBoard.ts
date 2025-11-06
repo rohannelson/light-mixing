@@ -16,8 +16,8 @@ export default function initBoard({
     return new Array(boardSize ** 2).fill(0x000000);
   }
 
-  //'ColoursArray' is an array of colours that the player can place on the game board.
-  function initColoursArray(boardSize: number): number[] {
+  //'ListColours' is an array of colours that the player can place on the game board.
+  function initListColours(boardSize: number): number[] {
     if (sandbox) {
       if (tertiary) return [...HALF_RGB, ...FULL_RGB];
       return [...FULL_RGB, ...FULL_RGB];
@@ -36,7 +36,7 @@ export default function initBoard({
 
   return {
     initListArray,
-    initColoursArray,
+    initListColours,
     initBoardColours,
   };
 }
