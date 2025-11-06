@@ -6,14 +6,26 @@ export default function Block({
   handleDrop,
   background,
   sandbox,
+  goal,
+  victory,
 }: {
   size: string;
   handleClick: () => void;
   handleDrop: (e: React.DragEvent<HTMLButtonElement>) => void;
   background: number;
   sandbox: boolean;
+  goal: number;
+  victory: boolean;
 }) {
-  let shadow = background == 0x000000 ? "shadow-[#ffffff]" : "";
+  let shadow = "shadow-empty";
+  if (victory) {
+    shadow = "transition-shadow duration-[1200ms] shadow-win";
+  } else if (background === goal) {
+    shadow = "shadow-match";
+  } else if (background !== 0x000000) {
+    shadow = "shadow-glow";
+  }
+
   return (
     <button
       onClick={handleClick}
@@ -24,7 +36,7 @@ export default function Block({
       onDragOver={(e) => e.preventDefault()}
       className={`w-${size} bg-[${toHexStr(background)}] aspect-square ${
         sandbox ? "" : "rounded-full"
-      } shadow-glow shadow-[${toHexStr(background)}] ${shadow}`}
+      } ${shadow} shadow-[${toHexStr(goal)}]`}
     ></button>
   );
 }

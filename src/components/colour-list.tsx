@@ -44,7 +44,7 @@ function PreviewBlock({
     <div
       className={`w-full h-full bg-[${toHexStr(
         background
-      )}] border border-solid border-black aspect-square shadow-glow shadow-[#${toHexStr(
+      )}] border border-solid border-black aspect-square shadow-glow shadow-[${toHexStr(
         background
       )}] ${colourHeldIndex === i ? "scale-110" : ""}`}
       onClick={(e) => {

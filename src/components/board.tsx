@@ -7,6 +7,8 @@ export default function Board({
   handleDrop,
   boardColours,
   sandbox,
+  goal,
+  victory,
 }: {
   boardSize: number;
   blockSize: string;
@@ -14,6 +16,8 @@ export default function Board({
   handleDrop: (e: React.DragEvent<HTMLButtonElement>, i: number) => void;
   boardColours: number[];
   sandbox: boolean;
+  goal: number[];
+  victory: boolean;
 }) {
   const sizeArray = new Array(boardSize ** 2).fill("");
 
@@ -30,6 +34,8 @@ export default function Board({
             handleDrop={(e) => handleDrop(e, i)}
             background={boardColours[i]}
             sandbox={sandbox}
+            goal={goal[i]}
+            victory={victory}
           />
         );
       })}
