@@ -14,13 +14,11 @@ export default function Game({
   sandbox = false,
   size = 3,
   goal = [],
-  list = [],
 }: {
   tertiary?: boolean;
   sandbox?: boolean;
   size?: number;
   goal?: number[];
-  list?: number[];
 }) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;

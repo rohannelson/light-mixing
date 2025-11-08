@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Game from '../components/game';
+
+const goal = [0xffff80, 0xff80ff, 0x80ffff, 0xffff80, 0xffffff, 0x80ffff, 0xffff80, 0xff80ff, 0x80ffff]
+---
+
+<Layout title="Light Mixing">
+	<main>
+				<Game client:only goal={goal} size={3}/>
+	</main>
+</Layout>

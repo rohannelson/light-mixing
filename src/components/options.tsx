@@ -35,7 +35,7 @@ export default function Options({
       ) : (
         <div></div>
       )}
-      <div />
+      {boardSize > 2 && <div />}
       <button
         type="button"
         onClick={handleReset}
