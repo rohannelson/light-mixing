@@ -7,7 +7,7 @@ import Options from "./options";
 import "drag-drop-touch";
 import { POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
-import { shuffle, splitRGB } from "../lib/utils";
+import { splitRGB } from "../lib/utils";
 
 export default function Game({
   tertiary = false,
@@ -98,6 +98,12 @@ export default function Game({
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
 
+  let path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash if any
+  const match = path.match(/(\d+)$/);
+  const level = match ? Number(match[1]) : 0;
+  const nextLevel = path.replace(/(\d+)$/, `${level + 1}`);
+  //Should probably actually set next level in each level so I can have an end to the campaign...
+
   return (
     <>
       <div
@@ -133,9 +139,12 @@ export default function Game({
               >
                 Again
               </button>
-              <button className="border border-solid border-white rounded p-1 px-2">
+              <a
+                href={nextLevel}
+                className="border border-solid border-white rounded p-1 px-2"
+              >
                 Next
-              </button>
+              </a>
             </div>
           </div>
         </div>
