@@ -1,4 +1,4 @@
-import { shuffle } from "../lib/utils";
+import { shuffle, splitRGB } from "../lib/utils";
 import { FULL_RGB, HALF_RGB } from "./consts";
 
 export default function initBoard({
@@ -17,10 +17,19 @@ export default function initBoard({
   }
 
   //'ListColours' is an array of colours that the player can place on the game board.
-  function initListColours(boardSize: number): number[] {
+  function initListColours(boardSize: number, goal: number[]): number[] {
     if (sandbox) {
       if (tertiary) return [...HALF_RGB, ...FULL_RGB];
       return [...FULL_RGB, ...FULL_RGB];
+    } else if (goal.length > 0) {
+      const list: number[] = [];
+      goal.map((v) => {
+        const { r, g, b } = splitRGB(v);
+        if (r !== 0) list.push(r << 16);
+        if (g !== 0) list.push(g << 8);
+        if (b !== 0) list.push(b);
+      });
+      return shuffle(list);
     } else {
       const rgbOptions = tertiary ? HALF_RGB : FULL_RGB;
       const coloursAmount = tertiary ? boardSize ** 2 * 2 : boardSize ** 2;

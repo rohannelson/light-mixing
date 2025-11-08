@@ -7,7 +7,7 @@ import Options from "./options";
 import "drag-drop-touch";
 import { POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
-import { shuffle } from "../lib/utils";
+import { shuffle, splitRGB } from "../lib/utils";
 
 export default function Game({
   tertiary = false,
@@ -32,17 +32,9 @@ export default function Game({
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [listColours, setListColours] = useState(
-    list.length === 0 ? initListColours(boardSize) : list
+    initListColours(boardSize, goal)
   );
   const [victory, setVictory] = useState(false);
-
-  function splitRGB(colour: number): { r: number; g: number; b: number } {
-    //Split colours into RGB array
-    const r = (colour >> 16) & 0xff; // top 8 bits
-    const g = (colour >> 8) & 0xff; // middle 8 bits
-    const b = colour & 0xff;
-    return { r, g, b };
-  }
 
   function checkMax(int: number) {
     return int === 0x100 ? 0xff : int;
@@ -85,7 +77,6 @@ export default function Game({
     !sandbox && setListColours(listColours.toSpliced(listIndex, 1));
     setMoves(moves + 1);
     if (newBoardColours.every((val, i) => val === goal[i])) {
-      console.log("Win!!!");
       setVictory(true);
     }
   }
@@ -95,14 +86,12 @@ export default function Game({
     setBoardSize(newBoardSize);
     setBoardColours(initBoardColours(newBoardSize));
     listArray = initListArray(newBoardSize);
-    setListColours(initListColours(newBoardSize));
+    setListColours(initListColours(newBoardSize, goal));
   }
 
   function handleReset() {
     setBoardColours(initBoardColours(boardSize));
-    setListColours(
-      list.length === 0 ? initListColours(boardSize) : shuffle(list)
-    );
+    setListColours(initListColours(boardSize, goal));
     setMoves(0);
     setMisclicks(0);
     setVictory(false);

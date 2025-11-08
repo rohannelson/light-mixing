@@ -19,3 +19,11 @@ export function shuffle(array: number[]) {
 export function toHexStr(int: number): string {
   return "#" + int.toString(16).padStart(6, "0");
 }
+
+export function splitRGB(colour: number): { r: number; g: number; b: number } {
+  //Split colours into RGB array
+  const r = (colour >> 16) & 0xff; // top 8 bits
+  const g = (colour >> 8) & 0xff; // middle 8 bits
+  const b = colour & 0xff;
+  return { r, g, b };
+}
