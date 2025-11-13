@@ -14,11 +14,13 @@ export default function Game({
   sandbox = false,
   size = 3,
   goal = [],
+  text = "",
 }: {
   tertiary?: boolean;
   sandbox?: boolean;
   size?: number;
   goal?: number[];
+  text?: string;
 }) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
@@ -98,7 +100,7 @@ export default function Game({
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
 
-  let path = window.location.pathname.replace(/\/$/, ""); // remove trailing slash if any
+  let path = window.location.pathname.replace(/\/$/, "");
   const match = path.match(/(\d+)$/);
   const level = match ? Number(match[1]) : 0;
   const nextLevel = path.replace(/(\d+)$/, `${level + 1}`);
@@ -195,6 +197,12 @@ export default function Game({
                 sandbox={sandbox}
               />
             </div>
+            {text && (
+              <>
+                <hr className="mt-3 mb-1"></hr>
+                <p>{text}</p>
+              </>
+            )}
           </div>
         </div>
       </div>
