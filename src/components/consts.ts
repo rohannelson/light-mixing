@@ -31,3 +31,13 @@ export const POSSIBLE_TERTIARY_COLOURS = [
   0xff80ff,
   0x80ffff,
 ];
+
+export const GAME_DEFAULTS = {
+  tertiary: false,
+  sandbox: false,
+  size: 3,
+  goal: [],
+  text: "",
+  name: "",
+  next: "",
+};

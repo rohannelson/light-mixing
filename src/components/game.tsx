@@ -5,23 +5,20 @@ import ColourList from "./colour-list";
 import Score from "./score";
 import Options from "./options";
 import "drag-drop-touch";
-import { POSSIBLE_TERTIARY_COLOURS } from "./consts";
+import { GAME_DEFAULTS, POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
 import { splitRGB } from "../lib/utils";
+import type { GameProps } from "../lib/types";
 
 export default function Game({
-  tertiary = false,
-  sandbox = false,
-  size = 3,
-  goal = [],
-  text = "",
-}: {
-  tertiary?: boolean;
-  sandbox?: boolean;
-  size?: number;
-  goal?: number[];
-  text?: string;
-}) {
+  tertiary = GAME_DEFAULTS.tertiary,
+  sandbox = GAME_DEFAULTS.sandbox,
+  size = GAME_DEFAULTS.size,
+  goal = GAME_DEFAULTS.goal,
+  text = GAME_DEFAULTS.text,
+  name = GAME_DEFAULTS.name,
+  next = GAME_DEFAULTS.next,
+}: GameProps) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
   goal = goal.length === 0 ? new Array(boardSize ** 2).fill(0xffffff) : goal;
@@ -32,7 +29,7 @@ export default function Game({
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [listColours, setListColours] = useState(
-    initListColours(boardSize, goal)
+    initListColours(boardSize, goal),
   );
   const [victory, setVictory] = useState(false);
 
@@ -67,7 +64,7 @@ export default function Game({
     let newBoardColours = [...boardColours];
     newBoardColours[boardIndex] = addHexes(
       boardColours[boardIndex],
-      listColours[listIndex]
+      listColours[listIndex],
     );
     if (!POSSIBLE_TERTIARY_COLOURS.includes(newBoardColours[boardIndex])) {
       setMisclicks(misclicks + 1);
@@ -100,50 +97,44 @@ export default function Game({
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
 
-  let path = window.location.pathname.replace(/\/$/, "");
-  const match = path.match(/(\d+)$/);
-  const level = match ? Number(match[1]) : 0;
-  const nextLevel = path.replace(/(\d+)$/, `${level + 1}`);
-  //Should probably actually set next level in each level so I can have an end to the campaign...
-
   return (
     <>
       <div
         id="victory-screen"
-        className={`bg-white absolute h-screen w-full transition duration-[2000ms] delay-100 z-10 flex ${
+        className={`absolute z-10 flex h-screen w-full bg-white transition delay-100 duration-[2000ms] ${
           victory ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div className="flex-col mx-auto content-center">
+        <div className="mx-auto flex-col content-center">
           <div
-            className={`bg-black p-8 rounded ${
+            className={`rounded bg-black p-8 ${
               victory
-                ? "transition delay-[1500ms] duration-1000  visible opacity-100"
+                ? "visible opacity-100 transition delay-[1500ms] duration-1000"
                 : "invisible opacity-0"
             }`}
           >
             <dl className="flex">
               <dt className="font-semibold">Moves:</dt>
               <dd className="ml-1">{moves}</dd>
-              <dt className="font-semibold ml-4">Misclicks:</dt>
+              <dt className="ml-4 font-semibold">Misclicks:</dt>
               <dd className="ml-1">{misclicks}</dd>
             </dl>
-            <div className="flex justify-between mt-2 gap-4">
+            <div className="mt-2 flex justify-between gap-4">
               <a
                 href="/"
-                className="border border-solid border-white rounded p-1 px-2"
+                className="rounded border border-solid border-white p-1 px-2"
               >
                 Back
               </a>
               <button
                 onClick={handleReset}
-                className="border border-solid border-white rounded p-1 px-2"
+                className="rounded border border-solid border-white p-1 px-2"
               >
                 Again
               </button>
               <a
-                href={nextLevel}
-                className="border border-solid border-white rounded p-1 px-2"
+                href={`./${next}`}
+                className="rounded border border-solid border-white p-1 px-2"
               >
                 Next
               </a>
@@ -152,13 +143,13 @@ export default function Game({
         </div>
       </div>
       <div className="flex">
-        <div className="flex mx-auto">
-          <div className="max-w-[500px] m-4">
+        <div className="mx-auto flex">
+          <div className="m-4 max-w-[500px]">
             <div className="flex flex-wrap gap-x-2">
-              <h1 className="text-2xl uppercase font-bold">
+              <h1 className="text-2xl font-bold uppercase">
                 Light Mixing Game
               </h1>
-              <a href="/" className="underline ml-auto">
+              <a href="/" className="ml-auto underline">
                 back
               </a>
             </div>
@@ -170,7 +161,7 @@ export default function Game({
                   GAME BOARD
                 </label>
                 <div />
-                <label className="font-semibold text-right">NEXT</label>
+                <label className="text-right font-semibold">NEXT</label>
               </div>
               <Board
                 boardSize={boardSize}
@@ -199,7 +190,7 @@ export default function Game({
             </div>
             {text && (
               <>
-                <hr className="mt-3 mb-1"></hr>
+                <hr className="mb-1 mt-3"></hr>
                 <p>{text}</p>
               </>
             )}
