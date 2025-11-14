@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GAME_DEFAULTS } from "./consts";
+import Game from "./Game";
+
+const { params, props } = Astro.props;
+
+const { name } = params;
+const {
+  goal = GAME_DEFAULTS.goal,
+  text = GAME_DEFAULTS.text,
+  size = GAME_DEFAULTS.size,
+  tertiary = GAME_DEFAULTS.tertiary,
+  next,
+} = props;
+---
+
+<Layout title={name}>
+  <main>
+    <Game
+      client:only
+      goal={goal}
+      size={size}
+      text={text}
+      tertiary={tertiary}
+      next={next}
+    />
+  </main>
+</Layout>

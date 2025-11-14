@@ -1,4 +1,4 @@
-import Block from "./block";
+import Block from "./Block";
 
 export default function Board({
   boardSize,
@@ -23,7 +23,7 @@ export default function Board({
 
   return (
     <div
-      className={`grid grid-cols-${boardSize} gap-1 w-full col-span-${boardSize}`}
+      className={`grid grid-cols-${boardSize} w-full gap-1 col-span-${boardSize}`}
     >
       {sizeArray.map((v, i) => {
         return (

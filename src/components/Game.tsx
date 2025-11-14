@@ -1,9 +1,9 @@
 //Note to self - maybe set 'blockSize' as a css variable rather than a prop?
 import { useState, type ChangeEvent } from "react";
-import Board from "./board";
-import ColourList from "./colour-list";
-import Score from "./score";
-import Options from "./options";
+import Board from "./Board";
+import ColourList from "./Colour-list";
+import Score from "./Score";
+import Options from "./Options";
 import "drag-drop-touch";
 import { GAME_DEFAULTS, POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
