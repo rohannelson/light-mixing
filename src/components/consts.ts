@@ -40,4 +40,5 @@ export const GAME_DEFAULTS = {
   text: "",
   name: "",
   next: "",
+  list: [],
 };

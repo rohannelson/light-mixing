@@ -1,20 +1,29 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Light Mixing">
-	<main>
-		<div class="flex">
-			<div class="flex flex-col mx-auto space-y-2 my-4 px-4">
-				<h1 class="text-2xl uppercase font-bold">Light Mixing Game</h1>
-				<p>A game I made because I wanted to learn about mixing light (as opposed to mixing paint).</p>
-				<h2 class="text-xl uppercase font-semibold">Play</h2>
-				<a href="/secondary" class="px-2 py-1 border hover:underline">Secondary colours</a>
-				<a href="/tertiary" class="px-2 py-1 border hover:underline">Tertiary colours</a>
-				<a href="/level-1" class="px-2 py-1 border hover:underline">Campaign</a>
-				<a href="/sandbox" class="px-2 py-1 border hover:underline">Free play</a>
-			</div>
-			
-		</div>
-	</main>
+  <main>
+    <div class="flex">
+      <div class="mx-auto my-4 flex flex-col space-y-2 px-4">
+        <h1 class="text-2xl font-bold uppercase">Light Mixing Game</h1>
+        <p>
+          A game I made because I wanted to learn about mixing light (as opposed
+          to mixing paint).
+        </p>
+        <h2 class="text-xl font-semibold uppercase">Play</h2>
+        <a href="/tutorial/click" class="border px-2 py-1 hover:underline"
+          >Tutorial</a
+        >
+        <a href="/secondary" class="border px-2 py-1 hover:underline"
+          >Secondary colours</a
+        >
+        <a href="/tertiary" class="border px-2 py-1 hover:underline"
+          >Tertiary colours</a
+        >
+        <a href="/sandbox" class="border px-2 py-1 hover:underline">Free play</a
+        >
+      </div>
+    </div>
+  </main>
 </Layout>

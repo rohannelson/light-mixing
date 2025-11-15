@@ -18,6 +18,7 @@ export default function Game({
   text = GAME_DEFAULTS.text,
   name = GAME_DEFAULTS.name,
   next = GAME_DEFAULTS.next,
+  list = GAME_DEFAULTS.list,
 }: GameProps) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
@@ -29,7 +30,7 @@ export default function Game({
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));
   const [listColours, setListColours] = useState(
-    initListColours(boardSize, goal),
+    initListColours(boardSize, goal, list),
   );
   const [victory, setVictory] = useState(false);
 
@@ -83,12 +84,12 @@ export default function Game({
     setBoardSize(newBoardSize);
     setBoardColours(initBoardColours(newBoardSize));
     listArray = initListArray(newBoardSize);
-    setListColours(initListColours(newBoardSize, goal));
+    setListColours(initListColours(newBoardSize, goal, list));
   }
 
   function handleReset() {
     setBoardColours(initBoardColours(boardSize));
-    setListColours(initListColours(boardSize, goal));
+    setListColours(initListColours(boardSize, goal, list));
     setMoves(0);
     setMisclicks(0);
     setVictory(false);
@@ -191,7 +192,7 @@ export default function Game({
             {text && (
               <>
                 <hr className="mb-1 mt-3"></hr>
-                <p>{text}</p>
+                <p dangerouslySetInnerHTML={{ __html: text }}></p>
               </>
             )}
           </div>

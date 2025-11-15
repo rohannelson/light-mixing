@@ -17,7 +17,12 @@ export default function initBoard({
   }
 
   //'ListColours' is an array of colours that the player can place on the game board.
-  function initListColours(boardSize: number, goal: number[]): number[] {
+  function initListColours(
+    boardSize: number,
+    goal: number[],
+    list: number[],
+  ): number[] {
+    if (list.length > 0) return list;
     if (sandbox) {
       if (tertiary) return [...HALF_RGB, ...FULL_RGB];
       return [...FULL_RGB, ...FULL_RGB];

@@ -2,17 +2,19 @@
 import Layout from "../layouts/Layout.astro";
 import { GAME_DEFAULTS } from "./consts";
 import Game from "./Game";
+import { type GameProps } from "../lib/types";
 
 const { params, props } = Astro.props;
 
-const { name } = params;
+const { name }: { name: string } = params;
 const {
   goal = GAME_DEFAULTS.goal,
   text = GAME_DEFAULTS.text,
   size = GAME_DEFAULTS.size,
   tertiary = GAME_DEFAULTS.tertiary,
+  list = GAME_DEFAULTS.list,
   next,
-} = props;
+}: Omit<GameProps, "name"> = props;
 ---
 
 <Layout title={name}>
@@ -24,6 +26,7 @@ const {
       text={text}
       tertiary={tertiary}
       next={next}
+      list={list}
     />
   </main>
 </Layout>

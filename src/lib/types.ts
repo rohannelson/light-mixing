@@ -11,6 +11,7 @@ export interface GameProps {
   text?: string;
   name?: string;
   next?: string;
+  list?: number[];
 }
 
 export interface GamePath {
