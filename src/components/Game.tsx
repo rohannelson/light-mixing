@@ -134,7 +134,7 @@ export default function Game({
                 Again
               </button>
               <a
-                href={`./${next}`}
+                href={`../${next}/`}
                 className="rounded border border-solid border-white p-1 px-2"
               >
                 Next
