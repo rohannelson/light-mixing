@@ -147,7 +147,7 @@ export default function Game({
         <div className="mx-auto flex">
           <div className="m-4 max-w-[500px]">
             <div className="flex flex-wrap gap-x-2">
-              <h1 className="text-2xl font-bold uppercase">
+              <h1 className="mb-2 text-2xl font-bold uppercase">
                 Light Mixing Game
               </h1>
               <a href="/" className="ml-auto underline">

@@ -21,7 +21,7 @@ export default function Options({
           <select
             id="board-size"
             defaultValue="3"
-            className="w-full p-1 bg-black border-white border"
+            className="w-full border border-white bg-black p-1"
             onChange={(e) => {
               handleChange(e);
             }}
@@ -33,13 +33,13 @@ export default function Options({
           </select>
         </label>
       ) : (
-        <div></div>
+        <div className={`col-span-${colSpan}`}></div>
       )}
       {boardSize > 2 && <div />}
       <button
         type="button"
         onClick={handleReset}
-        className="border border-white w-full font-semibold"
+        className="w-full border border-white font-semibold"
       >
         Reset
         <br />
