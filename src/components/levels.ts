@@ -29,6 +29,10 @@ export const TUTORIALS: Level[] = [
   {
     name: "mixing",
     size: 2,
+    list: [
+      0xff0000, 0xff0000, 0x00ff00, 0x00ff00, 0x0000ff, 0x0000ff, 0xff0000,
+      0xff0000, 0x00ff00, 0x00ff00, 0x0000ff, 0x0000ff,
+    ],
     text: "This game is about mixing light. Light mixes differently to pigment.<br/><br/>Mix all of the primary colours to make white!",
     next: "congratulations",
   },
@@ -62,7 +66,7 @@ export const SECONDARY: Level[] = [
     name: "yellow",
     text: "I wonder what makes yellow?",
     goal: [
-      0x00ff00, 0xffff00, 0xff0000, 0x00ff00, 0xffff00, 0xff0000, 0x00ff00,
+      0x00ff00, 0xffff00, 0xff0000, 0xffffff, 0xffff00, 0xffffff, 0x00ff00,
       0xffff00, 0xff0000,
     ],
     next: "multi",
