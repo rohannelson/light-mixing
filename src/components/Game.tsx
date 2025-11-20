@@ -8,7 +8,7 @@ import "drag-drop-touch";
 import { GAME_DEFAULTS, POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
 import { splitRGB } from "../lib/utils";
-import type { GameProps } from "../lib/types";
+import type { GameProps, History } from "../lib/types";
 
 export default function Game({
   tertiary = GAME_DEFAULTS.tertiary,
@@ -33,6 +33,7 @@ export default function Game({
     initListColours(boardSize, goal, list),
   );
   const [victory, setVictory] = useState(false);
+  const [history, setHistory] = useState<History[]>([]);
 
   function checkMax(int: number) {
     return int === 0x100 ? 0xff : int;
@@ -48,7 +49,7 @@ export default function Game({
     return colour;
   }
 
-  const [moves, setMoves] = useState(0);
+  const [undos, setUndos] = useState(0);
   const [misclicks, setMisclicks] = useState(0);
 
   const [colourHeldIndex, setColourHeldIndex] = useState<number>(0);
@@ -73,10 +74,18 @@ export default function Game({
     }
     setBoardColours(newBoardColours);
     !sandbox && setListColours(listColours.toSpliced(listIndex, 1));
-    setMoves(moves + 1);
     if (newBoardColours.every((val, i) => val === goal[i])) {
       setVictory(true);
     }
+    const nextHistory = [
+      ...history,
+      {
+        boardColours: boardColours,
+        listColours: listColours,
+      },
+    ];
+    setHistory(nextHistory);
+    console.log("history", nextHistory);
   }
 
   function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -90,10 +99,22 @@ export default function Game({
   function handleReset() {
     setBoardColours(initBoardColours(boardSize));
     setListColours(initListColours(boardSize, goal, list));
-    setMoves(0);
+    setUndos(0);
     setMisclicks(0);
     setVictory(false);
     setColourHeldIndex(0);
+  }
+
+  function handleUndo() {
+    if (history.length > 0) {
+      const { boardColours, listColours } = [...history].pop() as History;
+      console.log("boardColours: ", boardColours);
+      console.log("listColours: ", listColours);
+      setBoardColours(boardColours);
+      setListColours(listColours);
+      setHistory((prev) => prev.slice(0, -1));
+      setUndos(undos + 1);
+    }
   }
 
   const gridColumns = `grid-cols-[repeat(${boardSize},_1fr)_1rem_1fr]`;
@@ -115,8 +136,8 @@ export default function Game({
             }`}
           >
             <dl className="flex">
-              <dt className="font-semibold">Moves:</dt>
-              <dd className="ml-1">{moves}</dd>
+              <dt className="font-semibold">Undos:</dt>
+              <dd className="ml-1">{undos}</dd>
               <dt className="ml-4 font-semibold">Misclicks:</dt>
               <dd className="ml-1">{misclicks}</dd>
             </dl>
@@ -181,10 +202,11 @@ export default function Game({
                 colourHeldIndex={colourHeldIndex}
                 setColourHeldIndex={setColourHeldIndex}
               />
-              <Score moves={moves} misclicks={misclicks} />
+              <Score undos={undos} misclicks={misclicks} />
               <Options
                 handleChange={handleBoardSizeChange}
                 handleReset={handleReset}
+                handleUndo={handleUndo}
                 boardSize={boardSize}
                 sandbox={sandbox}
               />

@@ -3,19 +3,22 @@ import type { ChangeEvent } from "react";
 export default function Options({
   handleChange,
   handleReset,
+  handleUndo,
   boardSize,
   sandbox = false,
 }: {
   handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   handleReset: () => void;
+  handleUndo: () => void;
   boardSize: number;
   sandbox?: boolean;
 }) {
-  const colSpan = boardSize - 2 > 0 ? boardSize - 2 : 1;
   return (
     <>
-      {sandbox ? (
-        <label className={`font-semibold col-span-${colSpan} w-fit self-end`}>
+      {sandbox && (
+        <label
+          className={`col-end-[-4] ml-auto w-fit self-end font-semibold ${boardSize > 4 && "col-span-2"}`}
+        >
           Board Size
           <br />
           <select
@@ -32,14 +35,17 @@ export default function Options({
             <option value="6">6</option>
           </select>
         </label>
-      ) : (
-        <div className={`col-span-${colSpan}`}></div>
       )}
-      {boardSize > 2 && <div />}
+      <button
+        className="col-start-[-4] border border-solid border-white font-semibold"
+        onClick={handleUndo}
+      >
+        Undo
+      </button>
       <button
         type="button"
         onClick={handleReset}
-        className="w-full border border-white font-semibold"
+        className="col-start-[-2] w-full border border-white font-semibold"
       >
         Reset
         <br />

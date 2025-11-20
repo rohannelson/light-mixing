@@ -89,7 +89,7 @@ export default {
     extend: {
       boxShadow: {
         empty: "0px 0px 10px 1px",
-        glow: "0px 0px 10px 2px",
+        glow: "0px 0px 10px 3px",
         match: "0px 0px 14px 4px",
         win: "0px 0px 50px 10px",
       },

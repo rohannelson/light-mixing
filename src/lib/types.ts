@@ -18,3 +18,9 @@ export interface GamePath {
   params: { name: string };
   props: Omit<GameProps, "name"> & { next: string };
 }
+
+export interface History {
+  boardColours: number[];
+  listColours: number[];
+}
+[];
