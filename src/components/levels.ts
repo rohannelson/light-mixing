@@ -100,3 +100,18 @@ export const SECONDARY: Level[] = [
     next: "nice",
   },
 ];
+
+export const TERTIARY: Level[] = [
+  {
+    name: "red-base",
+    goal: [
+      0x80ffff, 0x8000ff, 0x80ffff, 0x8000ff, 0x80ff00, 0x8000ff, 0x80ffff,
+      0x8000ff, 0x80ffff,
+    ],
+    board: [
+      0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000,
+      0x800000, 0x800000,
+    ],
+    next: "green-base",
+  },
+];

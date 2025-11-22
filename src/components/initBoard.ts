@@ -4,15 +4,18 @@ import { FULL_RGB, HALF_RGB } from "./consts";
 export default function initBoard({
   tertiary,
   sandbox,
+  board,
 }: {
   tertiary: boolean;
   sandbox: boolean;
+  board: number[];
 }) {
   function initListArray(boardSize: number): string[] {
     return new Array(boardSize).fill("");
   }
 
   function initBoardColours(boardSize: number): number[] {
+    if (board.length > 0) return board;
     return new Array(boardSize ** 2).fill(0x000000);
   }
 
@@ -28,7 +31,7 @@ export default function initBoard({
       return [...FULL_RGB, ...FULL_RGB];
     } else if (goal.length > 0) {
       const list: number[] = [];
-      goal.map((v) => {
+      goal.map((v, i) => {
         let { r, g, b } = splitRGB(v);
         if (tertiary) {
           if (r === 0xff) {
@@ -44,9 +47,10 @@ export default function initBoard({
             b = 0;
           }
         }
-        if (r !== 0) list.push(r << 16);
-        if (g !== 0) list.push(g << 8);
-        if (b !== 0) list.push(b);
+        let { r: boardR, g: boardG, b: boardB } = splitRGB(board[i]);
+        if (r - boardR !== 0) list.push((r - boardR) << 16);
+        if (g - boardG !== 0) list.push((g - boardG) << 8);
+        if (b - boardB !== 0) list.push(b - boardB);
       });
       return shuffle(list);
     } else {

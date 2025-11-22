@@ -19,6 +19,7 @@ export default function Game({
   name = GAME_DEFAULTS.name,
   next = GAME_DEFAULTS.next,
   list = GAME_DEFAULTS.list,
+  board = GAME_DEFAULTS.board,
 }: GameProps) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
@@ -26,6 +27,7 @@ export default function Game({
   const { initListArray, initBoardColours, initListColours } = initBoard({
     tertiary,
     sandbox,
+    board,
   });
   let listArray = initListArray(boardSize);
   const [boardColours, setBoardColours] = useState(initBoardColours(boardSize));

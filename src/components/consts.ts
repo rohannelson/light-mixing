@@ -41,4 +41,5 @@ export const GAME_DEFAULTS = {
   name: "",
   next: "",
   list: [],
+  board: [],
 };

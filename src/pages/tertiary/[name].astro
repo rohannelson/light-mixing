@@ -1,0 +1,13 @@
+---
+import type { GamePath } from "../../lib/types";
+import { TERTIARY } from "../../components/levels";
+import GameWrapper from "../../components/GameWrapper.astro";
+
+export function getStaticPaths(): GamePath[] {
+  return TERTIARY.map((v) => {
+    return { params: { name: v.name }, props: { ...v } };
+  });
+}
+---
+
+<GameWrapper params={Astro.params} props={Astro.props} />

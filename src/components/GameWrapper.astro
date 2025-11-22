@@ -13,6 +13,7 @@ const {
   size = GAME_DEFAULTS.size,
   tertiary = GAME_DEFAULTS.tertiary,
   list = GAME_DEFAULTS.list,
+  board = GAME_DEFAULTS.board,
   next,
 }: Omit<GameProps, "name"> = props;
 ---
@@ -27,6 +28,7 @@ const {
       tertiary={tertiary}
       next={next}
       list={list}
+      board={board}
     />
   </main>
 </Layout>
