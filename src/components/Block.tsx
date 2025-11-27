@@ -36,8 +36,8 @@ export default function Block({
       }}
       onDragOver={(e) => e.preventDefault()}
       className={`w-${size} relative bg-[${toHexStr(background)}] aspect-square ${
-        sandbox ? "" : "rounded-full"
-      } ${shadow} shadow-[${toHexStr(goal)}] after:absolute after:inset-0 after:rounded-full after:content-[''] after:[background:radial-gradient(circle_closest-corner,transparent_0%,rgba(0,0,0,0.1)_50%,rgba(0,0,0,0.4)_100%)]`}
+        sandbox ? "" : "rounded-full after:rounded-full"
+      } ${shadow} shadow-[${toHexStr(goal)}] border border-[rgba(255,255,255,0.1)] after:absolute after:inset-0 after:content-[''] after:[background:radial-gradient(circle_closest-corner,transparent_0%,rgba(0,0,0,0.1)_50%,rgba(0,0,0,0.4)_100%)]`}
       style={
         {
           "--goal-r": (goal >> 16) & 255,

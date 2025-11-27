@@ -104,6 +104,7 @@ export const SECONDARY: Level[] = [
 export const TERTIARY: Level[] = [
   {
     name: "red-base",
+    text: "This board is filled with half-strength red. Can you figure out how to make the right colours?",
     goal: [
       0x80ffff, 0x8000ff, 0x80ffff, 0x8000ff, 0x80ff00, 0x8000ff, 0x80ffff,
       0x8000ff, 0x80ffff,
@@ -112,6 +113,50 @@ export const TERTIARY: Level[] = [
       0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000,
       0x800000, 0x800000,
     ],
+    next: "baseless-red",
+  },
+  {
+    name: "baseless-red",
+    text: "Sometimes adding a half-strength colour only makes a subtle change, so lights that need a half-strength colour have a different glow.",
+    goal: [
+      0x8000ff, 0x0000ff, 0x8000ff, 0x80ff00, 0x00ff00, 0x80ff00, 0x8000ff,
+      0x0000ff, 0x8000ff,
+    ],
     next: "green-base",
+  },
+  {
+    name: "green-base",
+    goal: [
+      0x0080ff, 0x00ff00, 0xff80ff, 0x00ff00, 0xff8000, 0x00ff00, 0xff80ff,
+      0x00ff00, 0x0080ff,
+    ],
+    board: [
+      0x008000, 0x008000, 0x008000, 0x008000, 0x008000, 0x008000, 0x008000,
+      0x008000, 0x008000,
+    ],
+    next: "baseless-green",
+  },
+  {
+    name: "baseless-green",
+    goal: [
+      0xff80ff, 0xff8000, 0xff80ff, 0x0080ff, 0x00ff00, 0x0080ff, 0xff80ff,
+      0xff8000, 0xff80ff,
+    ],
+    next: "red-green-base",
+  },
+  {
+    name: "red-green-base",
+    goal: [],
+    next: "baseless-red-green",
+  },
+  {
+    name: "baseless-red-green",
+    goal: [],
+    next: "blue-base",
+  },
+  {
+    name: "blue-base",
+    goal: [],
+    next: "blue-base",
   },
 ];

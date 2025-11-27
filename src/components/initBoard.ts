@@ -48,9 +48,11 @@ export default function initBoard({
           }
         }
         let { r: boardR, g: boardG, b: boardB } = splitRGB(board[i]);
-        if (r - boardR !== 0) list.push((r - boardR) << 16);
-        if (g - boardG !== 0) list.push((g - boardG) << 8);
-        if (b - boardB !== 0) list.push(b - boardB);
+        if (r - boardR !== 0)
+          list.push((r - boardR === 0xff ? 0xff : 0x80) << 16);
+        if (g - boardG !== 0)
+          list.push((g - boardG === 0xff ? 0xff : 0x80) << 8);
+        if (b - boardB !== 0) list.push(b - boardB === 0xff ? 0xff : 0x80);
       });
       return shuffle(list);
     } else {
