@@ -138,6 +138,7 @@ export const TERTIARY: Level[] = [
   },
   {
     name: "baseless-green",
+    text: "Unless otherwise specified, you are given the minimum number of colours needed to achieve the goal.<br/><br/>This means that you shouldn't use two half-strength colours where you could use one full-strength colour.",
     goal: [
       0xff80ff, 0xff8000, 0xff80ff, 0x0080ff, 0x00ff00, 0x0080ff, 0xff80ff,
       0xff8000, 0xff80ff,
@@ -146,17 +147,39 @@ export const TERTIARY: Level[] = [
   },
   {
     name: "red-green-base",
-    goal: [],
+    goal: [
+      0x80ff00, 0xff8000, 0xff80ff, 0x80ff00, 0x0080ff, 0x8000ff, 0x80ffff,
+      0xff8000, 0xff8000, 0x80ffff, 0x8000ff, 0x0080ff, 0x80ff00, 0xff80ff,
+      0xff8000, 0x80ff00,
+    ],
+    board: [
+      0x800000, 0x008000, 0x008000, 0x800000, 0x008000, 0x800000, 0x800000,
+      0x008000, 0x008000, 0x800000, 0x800000, 0x008000, 0x800000, 0x008000,
+      0x008000, 0x800000,
+    ],
+    size: 4,
     next: "baseless-red-green",
   },
   {
     name: "baseless-red-green",
-    goal: [],
+    goal: [
+      0x8000ff, 0xff8000, 0x80ff00, 0x0080ff, 0xff8000, 0xff0000, 0x00ff00,
+      0x80ff00, 0x80ff00, 0x00ff00, 0xff0000, 0xff8000, 0x0080ff, 0x80ff00,
+      0xff8000, 0x8000ff,
+    ],
+    size: 4,
     next: "blue-base",
   },
   {
     name: "blue-base",
-    goal: [],
+    goal: [
+      0xffff80, 0x00ff80, 0xff0080, 0x00ff80, 0xff0080, 0x00ff80, 0xff0080,
+      0x00ff80, 0xffff80,
+    ],
+    board: [
+      0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080,
+      0x000080, 0x000080,
+    ],
     next: "blue-base",
   },
 ];
