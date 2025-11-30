@@ -117,7 +117,7 @@ export const TERTIARY: Level[] = [
   },
   {
     name: "baseless-red",
-    text: "Sometimes adding a half-strength colour only makes a subtle change, so lights that need a half-strength colour have a different glow.",
+    text: "Sometimes adding a half-strength colour only makes a subtle change, so lights that need a half-strength colour have a different glow.<br/><br/>Red is the only half-strength colour you get in this level.",
     goal: [
       0x8000ff, 0x0000ff, 0x8000ff, 0x80ff00, 0x00ff00, 0x80ff00, 0x8000ff,
       0x0000ff, 0x8000ff,
@@ -138,7 +138,7 @@ export const TERTIARY: Level[] = [
   },
   {
     name: "baseless-green",
-    text: "Unless otherwise specified, you are given the minimum number of colours needed to achieve the goal.<br/><br/>This means that you shouldn't use two half-strength colours where you could use one full-strength colour.",
+    text: "Unless otherwise specified, you are given the minimum number of colours needed to achieve the goal.<br/><br/>This means that you shouldn't use two half-strength colours where you could use one full-strength colour.<br/><br/>Green is the only half-strength colour you get in this level.",
     goal: [
       0xff80ff, 0xff8000, 0xff80ff, 0x0080ff, 0x00ff00, 0x0080ff, 0xff80ff,
       0xff8000, 0xff80ff,
@@ -162,6 +162,7 @@ export const TERTIARY: Level[] = [
   },
   {
     name: "baseless-red-green",
+    text: "Remember, don't use a half-strength colour where you could use a full-strength colour.<br/><br/>You get half-strength reds and greens in this level.",
     goal: [
       0x8000ff, 0xff8000, 0x80ff00, 0x0080ff, 0xff8000, 0xff0000, 0x00ff00,
       0x80ff00, 0x80ff00, 0x00ff00, 0xff0000, 0xff8000, 0x0080ff, 0x80ff00,
@@ -180,6 +181,15 @@ export const TERTIARY: Level[] = [
       0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080,
       0x000080, 0x000080,
     ],
-    next: "blue-base",
+    next: "baseless-blue",
+  },
+  {
+    name: "baseless-blue",
+    text: "The only half-strength colours you get in this level are blue.",
+    goal: [
+      0x00ff00, 0x00ff80, 0x0000ff, 0x00ff80, 0xffff80, 0x00ff80, 0x0000ff,
+      0x00ff80, 0x00ff00,
+    ],
+    next: "baseless-blue",
   },
 ];

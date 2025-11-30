@@ -9,6 +9,7 @@ import { GAME_DEFAULTS, POSSIBLE_TERTIARY_COLOURS } from "./consts";
 import initBoard from "./initBoard";
 import { splitRGB } from "../lib/utils";
 import type { GameProps, History } from "../lib/types";
+import { $nextLevel } from "../lib/stores";
 
 export default function Game({
   tertiary = GAME_DEFAULTS.tertiary,
@@ -77,6 +78,7 @@ export default function Game({
     setBoardColours(newBoardColours);
     !sandbox && setListColours(listColours.toSpliced(listIndex, 1));
     if (newBoardColours.every((val, i) => val === goal[i])) {
+      $nextLevel.set(next);
       setVictory(true);
     }
     const nextHistory = [

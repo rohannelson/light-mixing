@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Resume from "../components/Resume";
 ---
 
 <Layout title="Light Mixing">
@@ -12,6 +13,7 @@ import Layout from "../layouts/Layout.astro";
           to mixing paint).
         </p>
         <h2 class="text-xl font-semibold uppercase">Play</h2>
+        <Resume client:only />
         <a href="/tutorial/click/" class="border px-2 py-1 hover:underline"
           >Tutorial</a
         >
