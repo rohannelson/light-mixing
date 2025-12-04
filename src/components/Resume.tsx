@@ -1,13 +1,18 @@
 import { $nextLevel } from "../lib/stores";
-const nextLevel = $nextLevel.get();
-console.log("nextLevel: ", nextLevel);
+import { useStore } from "@nanostores/react";
+import { capitalise } from "../lib/utils";
 
 export default function Resume() {
+  const nextLevel = useStore($nextLevel);
+  const { stage, level } = nextLevel;
   return (
     <>
-      {nextLevel && (
-        <a href="/next" className="border px-2 py-1 hover:underline">
-          {nextLevel}
+      {level && (
+        <a
+          href={`./${stage}/${level}/`}
+          className="mt-2 border border-black bg-white px-2 py-1 text-black hover:underline"
+        >
+          {capitalise(stage)}: {level}
         </a>
       )}
     </>

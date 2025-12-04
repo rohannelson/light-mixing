@@ -10,4 +10,7 @@ export function getStaticPaths(): GamePath[] {
 }
 ---
 
-<GameWrapper params={Astro.params} props={Astro.props} />
+<GameWrapper
+  params={Astro.params}
+  props={{ ...Astro.props, stage: "tertiary" }}
+/>

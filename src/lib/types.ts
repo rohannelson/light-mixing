@@ -13,6 +13,7 @@ export interface GameProps {
   next?: string;
   list?: number[];
   board?: number[];
+  stage?: string;
 }
 
 export interface GamePath {

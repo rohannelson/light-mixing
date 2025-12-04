@@ -21,10 +21,14 @@ export default function Game({
   next = GAME_DEFAULTS.next,
   list = GAME_DEFAULTS.list,
   board = GAME_DEFAULTS.board,
+  stage = GAME_DEFAULTS.stage,
 }: GameProps) {
   const [boardSize, setBoardSize] = useState(size);
   const blockSize = `calc(100/${boardSize})%`;
-  goal = goal.length === 0 ? new Array(boardSize ** 2).fill(0xffffff) : goal;
+  goal =
+    goal.length === 0
+      ? new Array(boardSize ** 2).fill(sandbox ? 0xfffffe : 0xffffff)
+      : goal;
   const { initListArray, initBoardColours, initListColours } = initBoard({
     tertiary,
     sandbox,
@@ -78,7 +82,10 @@ export default function Game({
     setBoardColours(newBoardColours);
     !sandbox && setListColours(listColours.toSpliced(listIndex, 1));
     if (newBoardColours.every((val, i) => val === goal[i])) {
-      $nextLevel.set(next);
+      $nextLevel.set({
+        level: next,
+        stage,
+      });
       setVictory(true);
     }
     const nextHistory = [
@@ -89,7 +96,6 @@ export default function Game({
       },
     ];
     setHistory(nextHistory);
-    console.log("history", nextHistory);
   }
 
   function handleBoardSizeChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -112,8 +118,6 @@ export default function Game({
   function handleUndo() {
     if (history.length > 0) {
       const { boardColours, listColours } = [...history].pop() as History;
-      console.log("boardColours: ", boardColours);
-      console.log("listColours: ", listColours);
       setBoardColours(boardColours);
       setListColours(listColours);
       setHistory((prev) => prev.slice(0, -1));

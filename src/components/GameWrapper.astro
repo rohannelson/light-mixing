@@ -14,6 +14,7 @@ const {
   tertiary = GAME_DEFAULTS.tertiary,
   list = GAME_DEFAULTS.list,
   board = GAME_DEFAULTS.board,
+  stage = GAME_DEFAULTS.stage,
   next,
 }: Omit<GameProps, "name"> = props;
 ---
@@ -29,6 +30,7 @@ const {
       next={next}
       list={list}
       board={board}
+      stage={stage}
     />
   </main>
 </Layout>

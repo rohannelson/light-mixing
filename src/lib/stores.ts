@@ -1,3 +1,11 @@
-import { persistentAtom } from "@nanostores/persistent";
+import { persistentMap } from "@nanostores/persistent";
 
-export const $nextLevel = persistentAtom<string>("");
+type NextLevel = {
+  stage: string;
+  level: string;
+};
+
+export const $nextLevel = persistentMap<NextLevel>("nextLevel", {
+  stage: "",
+  level: "",
+});

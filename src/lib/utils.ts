@@ -27,3 +27,7 @@ export function splitRGB(colour: number): { r: number; g: number; b: number } {
   const b = colour & 0xff;
   return { r, g, b };
 }
+
+export function capitalise(str: string): string {
+  return str[0].toUpperCase() + str.substring(1);
+}
