@@ -149,6 +149,6 @@ export const TERTIARY: Level[] = [
       0xff8000, 0x8000ff,
     ],
     size: 4,
-    next: "red-green-2",
+    next: "finito",
   },
 ];
