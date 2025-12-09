@@ -107,93 +107,48 @@ export const SECONDARY: Level[] = [
 
 export const TERTIARY: Level[] = [
   {
-    name: "red-base",
-    text: "This board is filled with half-strength red. Can you figure out how to make the right colours?",
+    name: "introducing-tertiary-colours",
+    text: "These levels include half-strength colours. <br/><br/> Sometimes the difference half-strength colours make can be pretty subtle, so lights that need a half-strength colour have diffraction spikes to make things a bit easier.<br/><br/>Can you see which greens are warmer and which are cooler?",
     goal: [
-      0x80ffff, 0x8000ff, 0x80ffff, 0x8000ff, 0x80ff00, 0x8000ff, 0x80ffff,
-      0x8000ff, 0x80ffff,
+      0x00ff00, 0x80ff00, 0x00ff00, 0x00ff80, 0x80ff80, 0x00ff80, 0x00ff00,
+      0x80ff00, 0x00ff00,
     ],
-    board: [
-      0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000, 0x800000,
-      0x800000, 0x800000,
-    ],
-    next: "baseless-red",
+    next: "study-in-blue-green",
   },
   {
-    name: "baseless-red",
-    text: "Sometimes adding a half-strength colour only makes a subtle change, so lights that need a half-strength colour have a different glow.<br/><br/>Red is the only half-strength colour you get in this level.",
+    name: "study-in-blue-green",
+    text: "Unless otherwise specified, you are given the minimum number of colours needed to achieve the goal.<br/><br/>This means that you shouldn't use two half-strength colours where you could use one full-strength colour.",
     goal: [
-      0x8000ff, 0x0000ff, 0x8000ff, 0x80ff00, 0x00ff00, 0x80ff00, 0x8000ff,
-      0x0000ff, 0x8000ff,
+      0x00ffff, 0x00ff80, 0x00ff00, 0x0080ff, 0x80ffff, 0x00ff80, 0x0000ff,
+      0x0080ff, 0x00ffff,
     ],
-    next: "green-base",
+    next: "study-in-red-blue",
   },
   {
-    name: "green-base",
+    name: "study-in-red-blue",
     goal: [
-      0x0080ff, 0x00ff00, 0xff80ff, 0x00ff00, 0xff8000, 0x00ff00, 0xff80ff,
-      0x00ff00, 0x0080ff,
+      0xff0000, 0xff0080, 0x800080, 0xff0080, 0xff00ff, 0x8000ff, 0x800080,
+      0x8000ff, 0x0000ff,
     ],
-    board: [
-      0x008000, 0x008000, 0x008000, 0x008000, 0x008000, 0x008000, 0x008000,
-      0x008000, 0x008000,
-    ],
-    next: "baseless-green",
+    next: "study-in-red-green",
   },
   {
-    name: "baseless-green",
-    text: "Unless otherwise specified, you are given the minimum number of colours needed to achieve the goal.<br/><br/>This means that you shouldn't use two half-strength colours where you could use one full-strength colour.<br/><br/>Green is the only half-strength colour you get in this level.",
+    name: "study-in-red-green",
     goal: [
-      0xff80ff, 0xff8000, 0xff80ff, 0x0080ff, 0x00ff00, 0x0080ff, 0xff80ff,
-      0xff8000, 0xff80ff,
+      0xffff00, 0xff8000, 0xff8080, 0x80ff00, 0xffff80, 0xff8000, 0x80ff80,
+      0x80ff00, 0xffff00,
     ],
-    next: "red-green-base",
+    next: "red-green-2",
   },
   {
-    name: "red-green-base",
-    goal: [
-      0x80ff00, 0xff8000, 0xff80ff, 0x80ff00, 0x0080ff, 0x8000ff, 0x80ffff,
-      0xff8000, 0xff8000, 0x80ffff, 0x8000ff, 0x0080ff, 0x80ff00, 0xff80ff,
-      0xff8000, 0x80ff00,
-    ],
-    board: [
-      0x800000, 0x008000, 0x008000, 0x800000, 0x008000, 0x800000, 0x800000,
-      0x008000, 0x008000, 0x800000, 0x800000, 0x008000, 0x800000, 0x008000,
-      0x008000, 0x800000,
-    ],
-    size: 4,
-    next: "baseless-red-green",
-  },
-  {
-    name: "baseless-red-green",
-    text: "Remember, don't use a half-strength colour where you could use a full-strength colour.<br/><br/>You get half-strength reds and greens in this level.",
+    name: "red-green-2",
+    text: "Time to take things up a notch =D",
     goal: [
       0x8000ff, 0xff8000, 0x80ff00, 0x0080ff, 0xff8000, 0xff0000, 0x00ff00,
       0x80ff00, 0x80ff00, 0x00ff00, 0xff0000, 0xff8000, 0x0080ff, 0x80ff00,
       0xff8000, 0x8000ff,
     ],
     size: 4,
-    next: "blue-base",
-  },
-  {
-    name: "blue-base",
-    goal: [
-      0xffff80, 0x00ff80, 0xff0080, 0x00ff80, 0xff0080, 0x00ff80, 0xff0080,
-      0x00ff80, 0xffff80,
-    ],
-    board: [
-      0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080, 0x000080,
-      0x000080, 0x000080,
-    ],
-    next: "baseless-blue",
-  },
-  {
-    name: "baseless-blue",
-    text: "The only half-strength colours you get in this level are blue.",
-    goal: [
-      0x00ff00, 0x00ff80, 0x0000ff, 0x00ff80, 0xffff80, 0x00ff80, 0x0000ff,
-      0x00ff80, 0x00ff00,
-    ],
-    next: "baseless-blue",
+    next: "red-green-2",
   },
 ];
