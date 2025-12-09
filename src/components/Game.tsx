@@ -113,6 +113,7 @@ export default function Game({
     setMisclicks(0);
     setVictory(false);
     setColourHeldIndex(0);
+    setHistory([]);
   }
 
   function handleUndo() {

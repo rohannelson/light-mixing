@@ -41,12 +41,16 @@ export const TUTORIALS: Level[] = [
 export const SECONDARY: Level[] = [
   {
     name: "white",
+    goal: [
+      0xffffff, 0xff0000, 0x00ff00, 0x0000ff, 0xffffff, 0x0000ff, 0x00ff00,
+      0xff0000, 0xffffff,
+    ],
     text: `Mix red, green, and blue to make white.<br/><br/>Can you finish the level without making any mistakes (misclicks)?`,
     next: "magenta",
   },
   {
     name: "magenta",
-    text: "Mix red and blue to make magenta.",
+    text: "Mixing red and blue makes magenta.",
     goal: [
       0xff0000, 0xff00ff, 0xff0000, 0xff00ff, 0xffffff, 0xff00ff, 0xff0000,
       0xff00ff, 0xff0000,
