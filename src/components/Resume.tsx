@@ -10,7 +10,7 @@ export default function Resume() {
       {level && (
         <a
           href={`./${stage}/${level}/`}
-          className="mt-2 border border-black bg-white px-2 py-1 text-black hover:underline"
+          className="mt-2 border border-black bg-white px-2 py-1 text-black hover:shadow-glow hover:shadow-white"
         >
           {capitalise(stage)}: {level}
         </a>

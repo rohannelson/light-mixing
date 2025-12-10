@@ -6,7 +6,7 @@ export default function Score({
   misclicks: number;
 }) {
   return (
-    <dl className="mt-1 flex flex-col">
+    <dl className="mt-2 flex flex-col">
       <div className="flex">
         <dt className="font-semibold">Misclicks:&nbsp;</dt>
         <dd>{misclicks}</dd>

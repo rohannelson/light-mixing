@@ -37,7 +37,7 @@ export default function Options({
         </label>
       )}
       <button
-        className="col-start-[-4] border border-solid border-white font-semibold"
+        className="col-start-[-4] mt-2 border border-solid border-white font-semibold"
         onClick={handleUndo}
       >
         Undo
@@ -45,7 +45,7 @@ export default function Options({
       <button
         type="button"
         onClick={handleReset}
-        className="col-start-[-2] w-full border border-white font-semibold"
+        className="col-start-[-2] mt-2 w-full border border-white font-semibold leading-4"
       >
         Reset
         <br />

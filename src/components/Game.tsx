@@ -176,23 +176,20 @@ export default function Game({
       <div className="flex">
         <div className="mx-auto flex">
           <div className="m-4 max-w-[500px]">
-            <div className="flex flex-wrap gap-x-2">
-              <h1 className="mb-2 text-2xl font-bold uppercase">
-                Light Mixing Game
-              </h1>
-              <a href="/" className="ml-auto underline">
-                back
-              </a>
-            </div>
-            <div className={`grid ${gridColumns} gap-1`}>
-              <div className={`col-span-${boardSize + 2} grid ${gridColumns}`}>
-                <label
-                  className={`col-span-${boardSize} text-center font-semibold`}
+            <div className="flex flex-wrap gap-x-2"></div>
+            <div className={`grid ${gridColumns} gap-2`}>
+              <div
+                className={`col-span-${boardSize + 2} grid ${gridColumns} mb-2`}
+              >
+                <h1
+                  className={`col-span-${boardSize} mx-auto flex gap-2 text-2xl font-bold uppercase`}
                 >
-                  GAME BOARD
-                </label>
+                  {name.toUpperCase().replaceAll("-", " ")}
+                </h1>
                 <div />
-                <label className="text-right font-semibold">NEXT</label>
+                <a href="/" className="ml-auto underline">
+                  back
+                </a>
               </div>
               <Board
                 boardSize={boardSize}
@@ -222,7 +219,7 @@ export default function Game({
             </div>
             {text && (
               <>
-                <hr className="mb-1 mt-3"></hr>
+                <hr className="mb-2 mt-3"></hr>
                 <p dangerouslySetInnerHTML={{ __html: text }}></p>
               </>
             )}

@@ -95,5 +95,17 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".neon": {
+          color: "var(--glow)",
+          "text-shadow":
+            "0 0 5px var(--glow), 0 0 10px var(--glow), 0 0 20px var(--glow)",
+          "-webkit-text-stroke": "0.5px #fff",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+  ],
 };

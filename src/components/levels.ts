@@ -107,7 +107,7 @@ export const SECONDARY: Level[] = [
 
 export const TERTIARY: Level[] = [
   {
-    name: "introducing-tertiary-colours",
+    name: "intro-to-tertiary-colours",
     text: "These levels include half-strength colours. <br/><br/> Sometimes the difference half-strength colours make can be pretty subtle, so lights that need a half-strength colour have diffraction spikes to make things a bit easier.<br/><br/>Can you see which greens are warmer and which are cooler?",
     goal: [
       0x00ff00, 0x80ff00, 0x00ff00, 0x00ff80, 0x80ff80, 0x00ff80, 0x00ff00,

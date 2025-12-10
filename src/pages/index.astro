@@ -6,25 +6,29 @@ import Resume from "../components/Resume";
 <Layout title="Light Mixing">
   <main>
     <div class="flex">
-      <div class="mx-auto my-4 flex flex-col space-y-2 px-4">
-        <h1 class="text-2xl font-bold uppercase">Light Mixing Game</h1>
-        <p>
-          A game I made because I wanted to learn about mixing light (as opposed
-          to mixing paint).
+      <div class="mx-auto my-4 flex max-w-[400px] flex-col space-y-2 px-4">
+        <h1 class="text-3xl font-bold uppercase drop-shadow-md">
+          <span style="--glow: #f00000;" class="neon">Light</span>
+          <span style="--glow: #00b000;" class="neon">Mixing</span>
+          <span style="--glow: #0040ff" class="neon">Game</span>
+        </h1>
+        <p class="pt-0.5">
+          A game I made because I wanted to learn about mixing light, as opposed
+          to mixing paint.
         </p>
-        <h2 class="text-xl font-semibold uppercase">Play</h2>
+        <h2 class="pt-2 text-xl font-semibold uppercase">Play</h2>
         <Resume client:only="react" />
-        <a href="/tutorial/click/" class="border px-2 py-1 hover:underline"
+        <a href="/tutorial/click/" class="border px-2 py-1 hover:shadow-glow"
           >Tutorial</a
         >
-        <a href="/secondary/white/" class="border px-2 py-1 hover:underline"
+        <a href="/secondary/white/" class="border px-2 py-1 hover:shadow-glow"
           >Secondary colours</a
         >
         <a
-          href="/tertiary/introducing-tertiary-colours/"
-          class="border px-2 py-1 hover:underline">Tertiary colours</a
+          href="/tertiary/intro-to-tertiary-colours/"
+          class="border px-2 py-1 hover:shadow-glow">Tertiary colours</a
         >
-        <a href="/sandbox/" class="border px-2 py-1 hover:underline"
+        <a href="/sandbox/" class="border px-2 py-1 hover:shadow-glow"
           >Free play</a
         >
       </div>
